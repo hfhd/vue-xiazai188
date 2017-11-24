@@ -7,7 +7,7 @@ const baseWebpackConfig = require('./webpack.base.conf')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
-const express = require('express')// nodejs开发框架express，用来简化操作
+const express = require('express')// nodejs开发框架express，用来简化操作  
 
 const app = express() // 创建node.js的express开发框架的实例
 var appData = require('../data.json')// 引用的json地址

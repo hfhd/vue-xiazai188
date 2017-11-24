@@ -6,7 +6,24 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "build": "http://www.runoob.com/wp-content/uploads/2017/01/vue.png",
+    "build": "http://www.runoob.com/wp-content/uploads/2017/01/vue.png",    "supports": [
+      {
+        "type": 0,
+        "des": "在线支付211"
+      },
+      {
+        "type": 1,
+        "des": "在线支付8这11"
+      },
+      {
+        "type": 2,
+        "des": "在线支付1"
+      },
+      {
+        "type": 3,
+        "des": "单人要参加这11"
+      }
+    ],
     "info":[
      "商家吃吃",
      "dcnjcnejcchcehueher"

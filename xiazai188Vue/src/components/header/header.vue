@@ -10,6 +10,14 @@
   				<div class="name">{{seller.start}}</div>
   			</div>
   	</div>
+  	<div v-if="seller.supports" class="support">
+  		<div class="text">
+  			{{seller.supports[0].des}}
+  		</div>
+  		<div calss="icon">
+  			{{seller.supports.length}}
+  		</div>
+  	</div>
   </div>
 </template>
 
