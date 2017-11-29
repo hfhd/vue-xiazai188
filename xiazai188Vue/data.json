@@ -6,7 +6,11 @@
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit/specs test/e2e/specs",
-    "build": "http://www.runoob.com/wp-content/uploads/2017/01/vue.png",    "supports": [
+    "build": "http://www.runoob.com/wp-content/uploads/2017/01/vue.png",
+    "score": 4.2, 
+    "deliveryPrice": 4,
+    "minPrice": 20,
+    "supports": [
       {
         "type": 0,
         "des": "在线支付211"
@@ -29,11 +33,186 @@
      "dcnjcnejcchcehueher"
     ]
   },
-  "goods": {
-    "vue": "^2.5.2",
-    "vue-router": "^3.0.1",
-    "vue-resource": "^1.3.4"
-  },
+  "goods": [
+    {
+      "name": "热销榜",
+      "type": 1,
+      "foods": [
+        {
+          "name": "皮蛋",
+          "price": 10,
+          "oldPrice": 20,
+          "rating": 100,
+          "info": "如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。(注意：此指浏览器逐帧动画机制，和 Vue 的 nextTick 概念不同)",
+          "ratings": [
+            {
+              "username": "dhedehdedhe",
+              "time": 1469281964000,
+              "star": 3.6
+            },
+            {
+              "username": "1120",
+              "time": 1469281961000,
+              "star": 1.6  
+            },
+            {
+              "username": "1515151151515",
+              "time": 1469281961000,
+              "star": 5  
+            }
+          ]
+        },
+        {
+          "name": "松花蛋",
+          "price": 10,
+          "oldPrice": "",
+          "rating": 100,
+          "info": "如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。(注意：此指浏览器逐帧动画机制，和 Vue 的 nextTick 概念不同)",
+          "ratings": [
+            {
+              "username": "dhedehdedhe",
+              "time": 1469281964000,
+              "star": 3.6
+            },
+            {
+              "username": "1120",
+              "time": 1469281961000,
+              "star": 1.6  
+            },
+            {
+              "username": "1515151151515",
+              "time": 1469281961000,
+              "star": 5  
+            }
+          ]
+        },
+        {
+          "name": "紫薯玉米粥",
+          "price": 10,
+          "oldPrice": "",
+          "rating": 100,
+          "info": "如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。(注意：此指浏览器逐帧动画机制，和 Vue 的 nextTick 概念不同)",
+          "ratings": [
+            {
+              "username": "dhedehdedhe",
+              "time": 1469281964000,
+              "star": 3.6
+            },
+            {
+              "username": "1120",
+              "time": 1469281961000,
+              "star": 1.6  
+            },
+            {
+              "username": "1515151151515",
+              "time": 1469281961000,
+              "star": 5  
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "单人曹涛",
+      "type": 2,
+      "foods": [
+        {
+          "name": "皮蛋",
+          "price": 10,
+          "oldPrice": "",
+          "rating": 100,
+          "info": "如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。(注意：此指浏览器逐帧动画机制，和 Vue 的 nextTick 概念不同)",
+          "ratings": [
+            {
+              "username": "dhedehdedhe",
+              "time": 1469281964000,
+              "star": 3.6
+            },
+            {
+              "username": "1120",
+              "time": 1469281961000,
+              "star": 1.6  
+            },
+            {
+              "username": "1515151151515",
+              "time": 1469281961000,
+              "star": 5  
+            }
+          ]
+        },
+        {
+          "name": "松花蛋",
+          "price": 10,
+          "oldPrice": "",
+          "rating": 100,
+          "info": "如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。(注意：此指浏览器逐帧动画机制，和 Vue 的 nextTick 概念不同)",
+          "ratings": [
+            {
+              "username": "dhedehdedhe",
+              "time": 1469281964000,
+              "star": 3.6
+            },
+            {
+              "username": "1120",
+              "time": 1469281961000,
+              "star": 1.6  
+            },
+            {
+              "username": "1515151151515",
+              "time": 1469281961000,
+              "star": 5  
+            }
+          ]
+        },
+        {
+          "name": "紫薯玉米粥",
+          "price": 10,
+          "oldPrice": "",
+          "rating": 100,
+          "info": "如果没有找到 JavaScript 钩子并且也没有检测到 CSS 过渡/动画，DOM 操作 (插入/删除) 在下一帧中立即执行。(注意：此指浏览器逐帧动画机制，和 Vue 的 nextTick 概念不同)",
+          "ratings": [
+            {
+              "username": "dhedehdedhe",
+              "time": 1469281964000,
+              "star": 3.6
+            },
+            {
+              "username": "1120",
+              "time": 1469281961000,
+              "star": 1.6  
+            },
+            {
+              "username": "1515151151515",
+              "time": 1469281961000,
+              "star": 5  
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "better-scroll",
+      "type": 2,
+      "foods": [
+        {
+          "name": "皮蛋",
+          "price": 10,
+          "oldPrice": ""
+        }
+      ]
+    },
+    {
+      "name": "当better-scroll 遇见 Vue_慕课手记",
+      "type": 2,
+      "foods": [
+        {
+          "name": "皮蛋",
+          "price": 10,
+          "oldPrice": ""
+        }
+      ]
+    }
+  ],
   "ratings": [
     "商家吃吃",
     "dcnjcnejcchcehueher"

@@ -12,12 +12,12 @@
            <router-link to="/seller">商家</router-link>
       </div>
     </div>
-    <router-view></router-view>
+    <router-view :seller="seller"></router-view>
   </div>
 </template>
 
 <script>
-  import header from './components/header/header.vue';
+  import header from './components/header/header';
 
   const ERR_OK = 0;
 
@@ -30,7 +30,6 @@
     created () {
         this.$http.get('/api/seller').then(response => {
               response = response.body;
-              console.log(response);
             if (response.errno === ERR_OK) {
               this.seller = response.data;
             }
@@ -43,6 +42,10 @@
 </script>
 
 <style>
+  body{
+    margin:0;
+    padding:0;
+  }
   .tab{
     display:flex;
     width:100%;
