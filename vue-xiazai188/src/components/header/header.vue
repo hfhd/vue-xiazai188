@@ -1,6 +1,6 @@
 <template>
   <div class="header">
-    <el-row class="header-top bg-blue">
+    <el-row class="header-top bg-red">
       <el-col :span="3">
         <div class="grid-content">
           <i class="el-icon-menu"></i>
@@ -8,11 +8,15 @@
       </el-col>
       <el-col :span="18">
         <div class="grid-content">
-          <div class="logo"></div>
+          <div class="cz-con">
+            <router-link  to="/zq" class="link-a">足球</router-link>
+            <router-link  to="/lq" class="link-a">篮球</router-link>
+          </div>
         </div>
       </el-col>
       <el-col :span="3"><div class="grid-content"><i class="el-icon-search"></i></div></el-col>
     </el-row>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -39,6 +43,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  a{text-decoration:none;}
   .header{
     position:relative;
   }
@@ -60,15 +65,31 @@ export default {
     .el-icon-search{
       float:right;
     }
-    .logo{
-      width:auto;
-      height:45px;
-      background:url("../../common/img/xiazai.png") center center no-repeat;
-      background-size:auto 45px;
-      padding-top:3px;
+    .grid-content{
+      height:50px;
+      display:flex;
+      justify-content: center;
+      align-items:center;
+    }
+    .cz-con{
+      text-align:center;
+      border:1px solid #fff;
+      border-radius:5px;
+      height:30px;
+      line-height:30px;
+      width:70%;
+      .link-a{
+        color:#fff;
+        width:48.4%;
+        text-align:center;
+        display:inline-block;
+        &.router-link-active{
+        background:#ba2a1f;
+        }
+      }
     }
   }
-  .bg-blue{
-    background:#3498db;
+  .bg-red{
+    background:#f32b1b;
   }
 </style>

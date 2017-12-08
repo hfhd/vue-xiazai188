@@ -11,10 +11,8 @@ const portfinder = require('portfinder')
 const express = require('express')// nodejs开发框架express，用来简化操作  
 
 const app = express() // 创建node.js的express开发框架的实例
-var appData = require('../data.json')// 引用的json地址
-var news = appData.news  // json某一个key
-var zuanti = appData.zuanti
-var ruanjian = appData.ruanjian
+var appData = require('../data.json')// 引用的json地址 
+var ruanjian = appData.ruanjian// json某一个key
 var games = appData.games
 var apiRoutes = express.Router()
 app.use('/api', apiRoutes)
@@ -46,13 +44,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
       poll: config.dev.poll,
     },
     before(app) {
-      app.get('/api/news', (req, res) => {
-        res.json({
-          // 这里是你的json内容
-          errno: 0,
-          data: news
-        })
-      }),
       app.get('/api/ruanjian', (req, res) => {
         res.json({
           // 这里是你的json内容
@@ -65,12 +56,6 @@ const devWebpackConfig = merge(baseWebpackConfig, {
           // 这里是你的json内容
           errno: 0,
           data: games
-        })
-      }),
-      app.get('/api/zuanti', (req, res) => {
-        res.json({
-          errno: 0,
-          data: zuanti
         })
       })  
     }

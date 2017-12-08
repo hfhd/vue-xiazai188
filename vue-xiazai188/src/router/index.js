@@ -1,10 +1,10 @@
 import Vue from 'vue';
 import Router from 'vue-router';
-import home from '@/components/home/home';
-import news from '@/components/news/news';
-import ruanjian from '@/components/ruanjian/ruanjian';
-import games from '@/components/games/games';
-import zuanti from '@/components/zuanti/zuanti';
+import zq from '@/components/zq/zq';
+import lq from '@/components/lq/lq';
+import schedule_jc from '@/components/zq/schedule_jc';
+import schedule_sfc from '@/components/zq/schedule_sfc';
+import schedule_dc from '@/components/zq/schedule_dc';
 
 Vue.use(Router);
 
@@ -12,33 +12,34 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: home
+      name: '/zq',
+      component: zq,
+      redirect: '/zq/schedule_jc'
     },
     {
-      path: '/home',
-      name: 'home',
-      component: home
+      path: '/zq',
+      name: 'zq',
+      component: zq,
+      children: [
+        {
+          path: '/zq/schedule_dc',
+          component: schedule_dc
+        },
+        {
+          path: '/zq/schedule_sfc',
+          component: schedule_sfc
+        },
+        {
+          path: '/zq/schedule_jc',
+          component: schedule_jc
+        }
+      ],
+       redirect: '/zq/schedule_jc'
     },
     {
-      path: '/news',
-      name: 'news',
-      component: news
-    },
-    {
-      path: '/ruanjian',
-      name: 'ruanjian',
-      component: ruanjian
-    },
-    {
-      path: '/games',
-      name: 'games',
-      component: games
-    },
-    {
-      path: '/zuanti',
-      name: 'zuanti',
-      component: zuanti
+      path: '/lq',
+      name: 'lq',
+      component: lq
     }
    ]
 });
