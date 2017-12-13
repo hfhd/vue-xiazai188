@@ -9,41 +9,47 @@
             <el-date-picker
               v-model="value1"
               type="date"
-              default-value="2017-12-01" @change="updateDate(value1)" style="font-size:14px; height:30px;">
+              default-value="2017-12-01" 
+              :picker-options="pickerBeginDateAfter" 
+              @change="updateDate(value1)" style="font-size:14px; height:30px;">
             </el-date-picker>
           </div>
         </div>
        </el-col>
       <el-col :span="4"><div class="grid-content next-data" @click="nextDate((value1))">后一期</div></el-col>
     </el-row>
-    <div class="listCon-wrap">
-      <el-row v-for="(item, index) in schedulejc.LotteryS" :key="item.id" class="itemList" v-if="item!=null">
-        <el-col :span="8">
-          <div class="grid-content left">
-              <p class="little-word">{{item.GameInfo.Competition.ShortName}}</p>
-              <p class="pic"><img :src="homeTeamImg[index]"></p>
-              <p class="name">{{item.GameInfo.HomeTeam.ShortName}}</p>
-          </div>
-        </el-col>
-        <el-col :span="8">
-          <div class="grid-content middle">
-              <p class="state">{{statusArray[item.GameInfo.Status]}}</p>
-              <p class="vs" v-if="item.GameInfo.Score != ''">{{item.GameInfo.Score[0]}}:{{item.GameInfo.Score[1]}}</p>
-              <p class="vs" v-else>--:--</p>
-              <p class="little-word" v-if="item.GameInfo.Half != ''" >半场 {{item.GameInfo.Half}}</p>
-              <p  class="little-word" v-else>半场</p>
-          </div>
-        </el-col>
-        <el-col :span="8">
-        <div class="grid-content right">
-              <p class="little-word">{{item.starttime}}</p>
-              <p class="pic"><img :src="awayTeamImg[index]"></p>
-              <p class="name">{{item.GameInfo.AwayTeam.ShortName}}</p>
-        </div>
-        </el-col>
-      </el-row>
-      <div v-else class="nodate-mes">暂无数据</div>
+    <div class="listCon-wrap" v-if=" schedulejc.LotteryS!=undefined && schedulejc.LotteryS.length!=0">
+      <div v-for="(item, index) in schedulejc.LotteryS" :key="item.id" class="itemList">
+        <router-link :to="'/zq/game/gamegoaldata/' + item.matchId" :matchId="item.matchId">
+          <el-row v-if="schedulejc.LotteryS[index].GameInfo!=null">
+            <el-col :span="8">
+              <div class="grid-content left">
+                  <p class="little-word">{{item.GameInfo.Competition.ShortName}}</p>
+                  <p class="pic"><img :src="homeTeamImg[index]"></p>
+                  <p class="name">{{item.GameInfo.HomeTeam.ShortName}}</p>
+              </div>
+            </el-col>
+            <el-col :span="8">
+              <div class="grid-content middle">
+                  <p class="state">{{statusArray[item.GameInfo.Status]}}</p>
+                  <p class="vs" v-if="item.GameInfo.Score != ''">{{item.GameInfo.Score[0]}}:{{item.GameInfo.Score[1]}}</p>
+                  <p class="vs" v-else>--:--</p>
+                  <p class="little-word" v-if="item.GameInfo.Half != ''" >半场 {{item.GameInfo.Half}}</p>
+                  <p  class="little-word" v-else>半场</p>
+              </div>
+            </el-col>
+            <el-col :span="8">
+            <div class="grid-content right">
+                  <p class="little-word">{{item.starttime}}</p>
+                  <p class="pic"><img :src="awayTeamImg[index]"></p>
+                  <p class="name">{{item.GameInfo.AwayTeam.ShortName}}</p>
+            </div>
+            </el-col>
+          </el-row>
+        </router-link>
+      </div>
     </div>
+    <div v-else class="nodata-mess">暂无数据</div>
   </div>
 </template>
 
@@ -73,15 +79,19 @@ export default {
           16: '金球',
           17: '未开始'
       },
-      'urlRode': ''
+      'urlRode': '',
+      'beginDateVal': '',
+      pickerBeginDateAfter: {
+        disabledDate: (time) => {
+        }
+      }
     };
   },
   created () {
-    var curDate = Date.parse(new Date()) - 11 * 3600 * 1000;
-    var strcurDate = new Date(curDate);
+    var strcurDate = new Date();
     var defalutYear = strcurDate.getFullYear();
     var defalutMon = (strcurDate.getMonth() + 1) > 10 ? (strcurDate.getMonth() + 1) : '0' + (strcurDate.getMonth() + 1);
-    var defalutDate = strcurDate.getDate() > 10 ? strcurDate.getDate() : '0' + strcurDate.getDate();
+    var defalutDate = strcurDate.getDate() >= 10 ? strcurDate.getDate() : '0' + strcurDate.getDate();
     var defalutTime = defalutYear + '-' + defalutMon + '-' + defalutDate;
     var urlRode = 'live/Api/Api/index/cc/schedule_jc/id/' + defalutTime;
     this.$http.jsonp(urlRode).then(response => {
@@ -94,18 +104,22 @@ export default {
     homeTeamImg () {
       var hometeamimg = [];
       for (var i = 0; i < this.schedulejc.LotteryS.length; i++) {
-        var hometeamimgone = this.schedulejc.LotteryS[i].GameInfo.HomeTeam.Id;
-        var hometeamimgtwo = 'http://static.caishencai.com/tiyu/images/zq-team/' + hometeamimgone + '.jpg';
-        hometeamimg.push(hometeamimgtwo);
+        if (this.schedulejc.LotteryS[i].GameInfo !== null) {
+          var hometeamimgone = this.schedulejc.LotteryS[i].GameInfo.HomeTeam.Id;
+          var hometeamimgtwo = 'http://static.caishencai.com/tiyu/images/zq-team/' + hometeamimgone + '.jpg';
+          hometeamimg.push(hometeamimgtwo);
+        }
       };
       return hometeamimg;
     },
     awayTeamImg () {
       var awayteamimg = [];
       for (var i = 0; i < this.schedulejc.LotteryS.length; i++) {
-        var awayteamimgone = this.schedulejc.LotteryS[i].GameInfo.AwayTeam.Id;
-        var awayteamimgtwo = 'http://static.caishencai.com/tiyu/images/zq-team/' + awayteamimgone + '.jpg';
-        awayteamimg.push(awayteamimgtwo);
+        if (this.schedulejc.LotteryS[i].GameInfo !== null) {
+          var awayteamimgone = this.schedulejc.LotteryS[i].GameInfo.AwayTeam.Id;
+          var awayteamimgtwo = 'http://static.caishencai.com/tiyu/images/zq-team/' + awayteamimgone + '.jpg';
+          awayteamimg.push(awayteamimgtwo);
+        }
       };
       return awayteamimg;
     }
@@ -115,7 +129,7 @@ export default {
       var strcurDate = value1;
       var defalutYear = strcurDate.getFullYear();
       var defalutMon = (strcurDate.getMonth() + 1) > 10 ? (strcurDate.getMonth() + 1) : '0' + (strcurDate.getMonth() + 1);
-      var defalutDate = strcurDate.getDate() > 10 ? strcurDate.getDate() : '0' + strcurDate.getDate();
+      var defalutDate = strcurDate.getDate() >= 10 ? strcurDate.getDate() : '0' + strcurDate.getDate();
       var defalutTime = defalutYear + '-' + defalutMon + '-' + defalutDate;
       this.$http.jsonp('live/Api/Api/index/cc/schedule_jc/id/' + defalutTime).then(response => {
         response = response.body;
@@ -124,7 +138,7 @@ export default {
       });
     },
     preDate (curdate) {
-      var predate = curdate.setDate(curdate.getDate() - 1) ;
+      var predate = curdate.setDate(curdate.getDate() - 1);
       var strcurDate = new Date(predate);
       var defalutYear = strcurDate.getFullYear();
       var defalutMon = (strcurDate.getMonth() + 1) >= 10 ? (strcurDate.getMonth() + 1) : '0' + (strcurDate.getMonth() + 1);
@@ -138,14 +152,13 @@ export default {
       });
     },
     nextDate (curdate) {
-      var predate = curdate.setDate(curdate.getDate() + 1) ;
+      var predate = curdate.setDate(curdate.getDate() + 1);
       var strcurDate = new Date(predate);
       var defalutYear = strcurDate.getFullYear();
       var defalutMon = (strcurDate.getMonth() + 1) >= 10 ? (strcurDate.getMonth() + 1) : '0' + (strcurDate.getMonth() + 1);
       console.log(strcurDate.getDate());
       var defalutDate = strcurDate.getDate() >= 10 ? strcurDate.getDate() : '0' + strcurDate.getDate();
       var defalutTime = defalutYear + '-' + defalutMon + '-' + defalutDate;
-      console.log(defalutTime);
       this.value1 = new Date(defalutTime);
       this.$http.jsonp('live/Api/Api/index/cc/schedule_jc/id/' + defalutTime).then(response => {
         response = response.body;
@@ -159,6 +172,7 @@ export default {
 
 <style lang="less" scoped>
 p{margin:0;}
+a{color:#000;}
 .tab{
     width:100%;
     height:40px;
@@ -220,6 +234,9 @@ p{margin:0;}
   .vs{
     font-size:26px;
   }
+  a{
+    display:block;
+  }
 }
 .bg-gray{
   background:#f5f5f5;
@@ -233,5 +250,10 @@ p{margin:0;}
   }
   .el-col {
     
-  }
+}
+.nodata-mess{
+  width:100%;
+  text-align:center;
+  padding:120px 0;
+}
 </style>

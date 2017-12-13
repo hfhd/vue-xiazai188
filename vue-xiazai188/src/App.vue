@@ -1,6 +1,6 @@
 <template>
   <div class="appCon">
-    <v-header class="header">头部</v-header>
+    <v-header class="header" id="header">头部</v-header>
     <!--<v-footer></v-footer>-->
     <!--<v-ads></v-ads>-->
   </div>
@@ -11,16 +11,17 @@ import header from './components/header/header';
 import footer from './components/footer/footer';
 import ads from './components/ads/ads';
 
-const ERR_OK = 0;
+// const ERR_OK = 0;
 
 export default {
   data () {
     return {
-      ruanjian: {},
-      games: {}
+      // ruanjian: {},
+      // games: {}
     };
   },
   created () {
+    /*
     this.$http.get('/api/ruanjian').then(response => {
        response = response.body;
        if (response.errno === ERR_OK) {
@@ -33,6 +34,7 @@ export default {
       this.games = response.data;
      }
     });
+    */
   },
   components: {
     'v-header': header,

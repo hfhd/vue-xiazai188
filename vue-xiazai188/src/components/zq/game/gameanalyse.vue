@@ -1,28 +1,18 @@
 <template>
-  <div class="zq">
-  
-    <div class="tab">
-      <div class="tab-item">
-        <router-link to="/zq/schedule_jc">竞选足球<p></p></router-link>
-      </div>
-      <div class="tab-item">
-        <router-link to="/zq/schedule_sfc">胜负彩<p></p></router-link>
-      </div>
-      <div class="tab-item">
-        <router-link to="/zq/schedule_dc">北京单场<p></p></router-link>
-      </div>
-    </div>
-    <router-view></router-view>
+  <div class="gameanalyse">  
   </div>
 </template>
 
 <script>
+
 export default {
   data () {
     return {
+      'matchid': this.$route.params.matchid,  // 获得路由传过来的id值
+      'gameinfo': {},
+      'lastupdate': ''
     };
-  },
-  methods: {}
+  }
 };
 </script>
 

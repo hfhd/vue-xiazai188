@@ -56,8 +56,8 @@ export default {
     }
     .el-icon-menu,.el-icon-search{
       color:#fff;
-      font-size:30px;
-      padding:10px 8px;
+      font-size:28px;
+      padding:10px 0px;
     }
     .el-icon-menu{
       float:left;
