@@ -200,4 +200,8 @@ export default {
       }      
     }
   }
+  .nodata-mess{
+    margin:100px 0;
+    text-align:center;
+  }
 </style>

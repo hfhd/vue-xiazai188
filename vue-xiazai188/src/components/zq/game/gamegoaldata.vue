@@ -6,16 +6,23 @@
     </div>
     <div class="zhedie-con">
         <div class="sk-box1 bg_gray">
-            <ul class="shikuang-line">
-                <li class="d-zt-box"><span class="d-zt">开始</span></li>
-                <li class="shikuang-lineLeft hr-box">
-                    <span class="sk-time f12">14’</span>
-                    <span class="shikuang-ball"><i class="jiaohuan"></i> </span>
-                    <div class="ren-name f13">稻本润一</div>
-                    <code class="jinqiu f12">静秋</code>
+            <div class="d-zt-box"><span class="d-zt">开始</span></div>
+            <ul class="shikuang-line ">
+                <li class="hr-box" v-for="(item, index) in curdataStr" :class="Position[index]">
+                    <span class="sk-time f12">{{item.Minute}}’</span>
+                    <span class="shikuang-ball">
+                      <i :class="EnameType[index]" v-if="item.Event!=undefined"></i>
+                      <i class="jiaohuan" v-else></i>
+                    </span>
+                    <div class="ren-name f13" v-if="item.Event!=undefined">{{item.Pname}}</div>
+                    <div class="jh f13" v-else>
+                      <p>{{item.Upname}}<em class="green-arrow"></em></p> 
+                      <p class="w_gray">{{item.Downname}}<em class="red-arrow"></em></p>
+                    </div>
+                    <code class="jinqiu f12" v-show="item.Event!=undefined">{{item.Ename}}</code>
                 </li>
-                <li class="d-zt-box"><span class="d-zt">结束</span></li>
             </ul>
+            <div class="d-zt-box"><span class="d-zt">结束</span></div>
         </div>
         <div class="sk-intro">
           <img src="http://tccache.500.com/mobile/touch/images/bifen/intro.png" width="100%">
@@ -30,7 +37,8 @@ export default {
   data () {
     return {
       'matchid': this.$route.params.matchid,  // 获得路由传过来的id值
-      'gamegoaldata': {}
+      'gamegoaldata': {},
+      'curdataStr': {}
     };
   },
   created () {
@@ -38,8 +46,68 @@ export default {
     this.$http.jsonp(gamegoaldataUrl).then(response => {
       response = response.body;
       this.gamegoaldata = response;
+      var goalnew = this.gamegoaldata.Goal_new;
+      var substitutes = this.gamegoaldata.Substitutes;
+
+        if (goalnew !== undefined || substitutes !== undefined) {
+            if (goalnew.length !== 0 || substitutes.length !== 0) {
+                this.curdataStr = goalnew.concat(substitutes); // 两个数据合并
+                this.curdataStr.sort(function (a, b) {   // 按顺序排序
+                return b.Minute - a.Minute;   // 按大到小
+                });
+            }
+        }
     }, response => {
     });
+  },
+  computed: {
+    Position () {
+      var position = [];
+      var position2 = '';
+      for (var i = 0; i < this.curdataStr.length; i++) {
+        if (this.curdataStr[i].Type === '1') {
+           position2 = 'shikuang-lineLeft';
+           position.push(position2);
+        } else if (this.curdataStr[i].Type === '2') {
+          position2 = 'shikuang-lineRight';
+           position.push(position2);
+        }
+      };
+      return position;
+    },
+    EnameType () {
+      var enametype = [];
+      var event = '';
+      for (var i = 0; i < this.curdataStr.length; i++) {
+              console.log(this.curdataStr[i].Event);
+          if (this.curdataStr[i].Event === 0) {
+            event = 'black-ball';
+            enametype.push(event);
+          } else if (this.curdataStr[i].Event === 1) {
+            event = 'dianqiu';
+            enametype.push(event);
+          } else if (this.curdataStr[i].Event === 2) {
+            event = 'wulong';
+            enametype.push(event);
+          } else if (this.curdataStr[i].Event === 3) {
+            event = 'yellow-card';
+            enametype.push(event);
+          } else if (this.curdataStr[i].Event === 4) {
+            event = 'red-card';
+            enametype.push(event);
+          } else if (this.curdataStr[i].Event === 5) {
+            event = 'red-yellow-card';
+            enametype.push(event);
+          } else if (this.curdataStr[i].Event === 8) {
+            event = 'dian-ball';
+            enametype.push(event);
+          } else {
+             event = 'no';
+             enametype.push(event);
+          }
+      };
+       return enametype;
+    }
   }
 };
 </script>
@@ -52,18 +120,43 @@ a{
 a:hover,a:visited{
   text-decoration: none;border:0;
 }
-p{
+p,ul,li{
   margin:0;
   padding:0;
+}
+ul,li,ol{
+  list-style:none;
 }
 .zhedie-con{
   width:100%;
   height:auto;
   overflow:hidden;
 }
+.well-sm{
+    background:#f5f5f5;
+    padding:8px 10px;
+    font-size:12px;
+  i.sm-line{
+    width:2px;
+    height:15px;
+    background: #f32b1b;
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+.nodata-mess{
+  margin:100px 0;
+  text-align:center;
+}
 .sk-box1{
-  font-size:12px;
   widdth:100%;
+  padding-bottom:15px;
+}
+.f12{
+  font-size:12px;
+}
+.f13{
+  font-size:13px;
 }
 .sk-time {
   position: absolute;
@@ -81,7 +174,6 @@ p{
   border: 1px solid #d0d0d0;
   position: absolute;
   top: 0;
-
 }
 .ren-name {
   position: relative;
@@ -89,30 +181,29 @@ p{
   color: #333;
   display: inline-block;
 }
+.d-zt-box {
+    background: #e2e2e2;
+    width: 1px;
+    height: 100%;
+    display: inline-block;
+    margin-left:50%;
+  }
 
 .shikuang-line{
   background: #e2e2e2;
   width: 1px;
-  margin: .533333rem auto 0;
+  padding: .533333rem 0;
   height: 100%;
   display: inline-block;
   margin-left:50%;
   li{
-    width: 15rem;
+    width:10rem;
     line-height: 40px;
     margin-bottom:15px;
     background: #fff;
     border: 1px solid #e2e2e2;
     position: relative;
     border-radius: 2px;
-  }
-  li.d-zt-box {
-    margin-bottom: 20px;
-    height: 50px;
-    background: 0 0;
-    border: none;
-    width: 50px;
-    clear: both;
   }
   .shikuang-lineRight {
     float: left;
@@ -153,14 +244,14 @@ p{
     text-align: right;
   }
   .hr-box{
-    line-height: 25px;
+    line-height: 30px;
     .jh{
       p{
         border-bottom: 1px solid #f4f4f4;
       }
     }
     .jiaohuan{
-      margin-top:5px;
+      margin-top:8px;
     }
   }
 }
@@ -176,6 +267,7 @@ p{
   background: #fff;
   position: relative;
   margin-left:-25px;
+  font-size:12px;
 }
 
 .shikuang-lineLeft code {
@@ -227,9 +319,11 @@ p{
 }
 .black-ball {
   background-position: center -107px;
+  margin-top:8px;
 }
 .dianqiu{
   background-position: center -143px;
+  margin-top:8px;
 }
 .dian-ball{
   background-position: center -250px;
