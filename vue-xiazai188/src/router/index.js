@@ -19,6 +19,16 @@ import zs_hdaoddsinfo from '@/components/zq/game/zs_hdaoddsinfo';
 import zs_ahoddsinfo from '@/components/zq/game/zs_ahoddsinfo';
 import zs_ouoddsinfo from '@/components/zq/game/zs_ouoddsinfo';
 
+import team from '@/components/zq/team/team';
+import teamzr from '@/components/zq/team/teamzr';
+import teamsc from '@/components/zq/team/teamsc';
+import teamstats from '@/components/zq/team/teamstats';
+
+import competition from '@/components/zq/competition/competition';
+import schedule from '@/components/zq/competition/schedule';
+import shooter from '@/components/zq/competition/shooter';
+import standing from '@/components/zq/competition/standing';
+
 Vue.use(Router);
 
 export default new Router({
@@ -97,6 +107,42 @@ export default new Router({
               component: zs_ouoddsinfo
             }
           ]
+        }
+      ]
+    },
+    {
+      path: '/zq/team/teamsc/:teamid',
+      component: team,
+      children: [
+        {
+          path: '/zq/team/teamsc/:teamid',
+          component: teamsc
+        },
+        {
+          path: '/zq/team/teamstats/:teamid',
+          component: teamstats
+        },
+        {
+          path: '/zq/team/teamzr/:teamid',
+          component: teamzr
+        }
+      ]
+    },
+    {
+      path: '/zq/competition/schedule/:compid',
+      component: competition,
+      children: [
+        {
+          path: '/zq/competition/schedule/:compid',
+          component: schedule
+        },
+        {
+          path: '/zq/competition/shooter/:compid',
+          component: shooter
+        },
+        {
+          path: '/zq/competition/standing/:compid',
+          component: standing
         }
       ]
     }

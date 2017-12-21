@@ -86,7 +86,7 @@ export default {
   created () {
     var strcurDate = new Date();
     var defalutYear = strcurDate.getFullYear();
-    var urlQh = 'http://api.tiyu.caishencai.com/Api/Api/index/cc/schedule_sfc_degree/id/' + defalutYear;
+    var urlQh = 'live/Api/Api/index/cc/schedule_sfc_degree/id/' + defalutYear;
 
     this.$http.jsonp(urlQh).then(response => {
       response = response.body;
@@ -114,7 +114,7 @@ export default {
         }
       }
 
-      var defaultqh = 'http://api.tiyu.caishencai.com/Api/Api/index/cc/schedule_sfc/id/' + this.qhs.CurDegree;
+      var defaultqh = 'live/Api/Api/index/cc/schedule_sfc/id/' + this.qhs.CurDegree;
       this.$http.jsonp(defaultqh).then(response => {
         response = response.body;
         this.schedulesfc = response;
@@ -152,7 +152,7 @@ export default {
       this.collapseShow = !this.collapseShow;
     },
     updateDate (qh, index) {
-      var selectedqh = 'http://api.tiyu.caishencai.com/Api/Api/index/cc/schedule_sfc/id/' + qh;
+      var selectedqh = 'live/Api/Api/index/cc/schedule_sfc/id/' + qh;
       this.$http.jsonp(selectedqh).then(response => {
         response = response.body;
         this.schedulesfc = response;
@@ -186,7 +186,7 @@ export default {
       }
     },
     nextDate () { // 前一期
-      var selectedqh = 'http://api.tiyu.caishencai.com/Api/Api/index/cc/schedule_sfc/id/' + this.nextqh;
+      var selectedqh = 'live/Api/Api/index/cc/schedule_sfc/id/' + this.nextqh;
       this.$http.jsonp(selectedqh).then(response => {
         response = response.body;
         this.schedulesfc = response;
@@ -219,7 +219,7 @@ export default {
       }
     },
     preDate () { // 后一期
-      var selectedqh = 'http://api.tiyu.caishencai.com/Api/Api/index/cc/schedule_sfc/id/' + this.preqh;
+      var selectedqh = 'live/Api/Api/index/cc/schedule_sfc/id/' + this.preqh;
       this.$http.jsonp(selectedqh).then(response => {
         response = response.body;
         this.schedulesfc = response;

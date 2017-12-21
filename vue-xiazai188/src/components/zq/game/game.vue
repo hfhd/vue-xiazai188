@@ -3,19 +3,21 @@
     <div class="gameTop">
       <div class="gameheader-wrap">
         <el-row class="gameheader">
-          <el-col :span="3"><div class="grid-content"><i class="el-icon-arrow-left el-icon"></i></div></el-col>
-          <el-col :span="18"><div class="grid-content">{{gameinfo.Competition.ShortName}}</div></el-col>
+          <el-col :span="3" ><div class="grid-content"><i class="el-icon-arrow-left el-icon" @click="backHistory"></i></div></el-col>
+          <el-col :span="18">
+            <router-link :to="'/zq/competition/schedule/' + gameinfo.Competition.Id" :competitionid="gameinfo.Competition.Id" class="grid-content">{{gameinfo.Competition.ShortName}}</router-link>
+          </el-col>
           <el-col :span="3"><div class="grid-content"><i class="el-icon-menu el-icon"></i></div></el-col>
         </el-row>
       </div>
       <el-row class="gameinfo-box">
         <el-col :span="8">
           <div class="grid-content left">
-            <a href>
+            <router-link :to="'/zq/team/teamsc/' + gameinfo.HomeTeam.Id" :homeTeamid="gameinfo.HomeTeam.Id">
               <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + gameinfo.HomeTeam.Id + '.jpg'"></p>
               <p class="name" v-if="gameinfo.HomeTeam.ShortName!=''">{{gameinfo.HomeTeam.ShortName}}</p><p class="name" v-else>{{gameinfo.HomeTeam.Name}}</p>
               <p class="little-word">{{gameinfo.Competition.ShortName}}排名{{gameinfo.HomeTeam.Rank}}</p>
-            </a>
+            </router-link>
           </div>
         </el-col>
         <el-col :span="8">
@@ -27,11 +29,11 @@
         </el-col>
         <el-col :span="8">
           <div class="grid-content right">
-            <a href>
+            <router-link :to="'/zq/team/teamsc/' + gameinfo.AwayTeam.Id" :homeTeamid="gameinfo.AwayTeam.Id">
               <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + gameinfo.AwayTeam.Id + '.jpg'"></p>
               <p class="name" v-if="gameinfo.AwayTeam.ShortName!=''">{{gameinfo.AwayTeam.ShortName}}</p><p class="name" v-else>{{gameinfo.AwayTeam.Name}}</p>
               <p class="little-word">{{gameinfo.Competition.ShortName}}排名{{gameinfo.AwayTeam.Rank}}</p>
-            </a>
+            </router-link>
           </div>
         </el-col>
       </el-row>
@@ -70,7 +72,7 @@ export default {
     };
   },
   created () {
-    var gameinforUrl = 'http://api.tiyu.caishencai.com/Api/Api/index/cc/gameinfo/id/' + this.matchid;
+    var gameinforUrl = 'live/Api/Api/index/cc/gameinfo/id/' + this.matchid;
     this.$http.jsonp(gameinforUrl).then(response => {
       response = response.body;
       this.gameinfo = response;
@@ -88,6 +90,11 @@ export default {
         lastupdate = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate() + ' ' + d.getHours() + ':' + d.getMinutes();
         return lastupdate;
       }
+    }
+  },
+  methods: {
+    backHistory () {
+      window.history.go(-1);
     }
   }
 };
@@ -120,6 +127,9 @@ export default {
       height:50px;
       line-height:50px;
       text-align:center;
+      a{
+        color:#fff;
+      }
       .el-icon{
         font-size:28px;
         padding:10px 0;

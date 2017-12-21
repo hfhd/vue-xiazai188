@@ -50,6 +50,7 @@ a:hover,a:visited{
       .grid-content{
           & > a{
            font-size:12px;
+           color:#b8bec7;
             &.router-link-active {
               color:#1b4a90;
             }

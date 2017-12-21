@@ -42,7 +42,7 @@ export default {
     };
   },
   created () {
-    var gamegoaldataUrl = 'http://api.tiyu.caishencai.com/Api/Api/index/cc/gamegoaldata/id/' + this.matchid;
+    var gamegoaldataUrl = 'live/Api/Api/index/cc/gamegoaldata/id/' + this.matchid;
     this.$http.jsonp(gamegoaldataUrl).then(response => {
       response = response.body;
       this.gamegoaldata = response;

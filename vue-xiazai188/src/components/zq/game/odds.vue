@@ -35,40 +35,27 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  a{
-    text-decoration: none; 
-    color:#000;
-  } 
-  a:hover,a:visited{
-    text-decoration: none;border:0;
-  }
-.tab{
+a{
+  text-decoration: none; 
+  color:#000;
+} 
+a:hover,a:visited{
+  text-decoration: none;border:0;
+}
+.gametab-box{
     width:100%;
-    height:25;
-    line-height:25px;
-    background:#f32b1b;
-    text-align:center;
-    display:flex;
-    justify-content: center;
-    .tab-item{
-      float:left;
-      width:20%;
-      font-weight:500;
+    .gametab2{
       text-align:center;
-      & > a{
-       color:#fff;
-       font-size:14px;
-        &.router-link-active{
-          color:#fff;
-        }
-        &.router-link-active p{
-            width: 30px;
-            height: 2px;
-            background: #fff;
-            margin: 0 auto;
-            margin-top: 4px;
-        }
-      }
-    }
-  }
+      line-height:28px;
+      .grid-content{
+          & > a{
+           font-size:12px;
+           color:#b8bec7;
+            &.router-link-active {
+              color:#1b4a90;
+            }
+          }      
+      } 
+  }     
+}
 </style>
