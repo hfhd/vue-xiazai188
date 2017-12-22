@@ -1,6 +1,11 @@
 <template>
   <div class="lq">
-  篮球
+    <div class="tab">
+      <div class="tab-item">
+        <router-link to="/lq/schedule_jc">竞彩篮球<p></p></router-link>
+      </div>
+    </div>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -15,19 +20,38 @@ export default {
 </script>
 
 <style lang="less" scoped>
+  a{
+    text-decoration: none; 
+    color:#000;
+  } 
+  a:hover,a:visited{
+    text-decoration: none;border:0;
+  }
 .tab{
     width:100%;
-    height:40px;
-    line-height:40px;
+    height:25;
+    line-height:25px;
+    background:#f32b1b;
+    text-align:center;
+    display:flex;
+    justify-content: center;
     .tab-item{
       float:left;
-      text-align:center;
       width:20%;
-      font-weight:bold;
+      font-weight:500;
+      text-align:center;
       & > a{
-        font-size:16px;
+       color:#fff;
+       font-size:14px;
         &.router-link-active{
-          color:#3498db;
+          color:#fff;
+        }
+        &.router-link-active p{
+            width: 30px;
+            height: 2px;
+            background: #fff;
+            margin: 0 auto;
+            margin-top: 4px;
         }
       }
     }

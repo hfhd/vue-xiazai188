@@ -5,14 +5,111 @@
         <el-row class="dataTab-wrap bg-gray">
           <el-col :span="6"><div class="grid-content pre-data" @click="nextDate()" :index="nextindex" :qh="nextqh">前一期</div></el-col>
            <el-col :span="12" class="qhBox">
-             <div class="grid-content curdata">{{lunList[lunstart]}}</div><i class="el-icon-caret-bottom el-icon-qh"></i>
+             <div class="grid-content curdata" @click="collapseDetailShow">{{lunList[lunstart]}}</div><i class="el-icon-caret-bottom el-icon-qh"></i>
            </el-col>
           <el-col :span="6"><div class="grid-content next-data" @click="preDate()" :index="preindex" :qh="preqh">后一期</div></el-col>
         </el-row>
-        <div class="collapse" >
+        <div class="collapse" v-show="collapseShow">
             <div class="item"><a class="grid-content" v-for="(lunlist, lun1, index) in lunList" :key="index">{{lunlist}}</a>
             </div>
         </div>
+        <div class="zhedie-item">
+          <div class="zhedie-con" v-for="(PeriodArray, name, index1) in PeriodArrays" :key="index1">
+            <div v-if="flag==11 && PeriodArray[name]!=undefined" >
+              <div v-for="(perschedule, name, index2) in PeriodArray.Schedule" :key='index2'  > 
+                <div class="table">
+                  <el-row :gutter="3"  class="list" v-for="(item, name, index4) in perschedule[name]" :key='index4'>
+                    <el-col :span="5">
+                      <div class="grid-content little-word">
+                      <p :lastdate="lastDate[index]">{{lastDate[index] | filterdatatime}}</p>
+                      </div>
+                    </el-col>
+                    <el-col :span="2">
+                      <div class="grid-content fc">
+                        <img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + item.Id[2] + '.jpg'" class="img">
+                      </div>                 
+                    </el-col>                     
+                    <el-col :span="5">
+                      <div class="grid-content homename fl" v-if="Teams[item.Id[2]].ShortName!=''">
+                      {{Teams[item.Id[2]].ShortName}}
+                      </div>
+                      <div class="grid-content homename fl" v-else>
+                      {{Teams[item.Id[2]].Name}}
+                      </div>                  
+                    </el-col>
+                    <el-col :span="3">
+                      <div class="grid-content fc score">
+                        <span v-if="item.Score[0]==='' && item.Score[1]===''">-- : --</span> 
+                        <span v-else>{{item.Score[0]}} : {{item.Score[1]}}</span>                  
+                      </div>
+                    </el-col>
+                    <el-col :span="5">
+                      <div class="grid-content awayname fr" v-if="Teams[item.Id[3]].ShortName!=''">
+                      {{Teams[item.Id[3]].ShortName}}
+                      </div>
+                      <div class="grid-content awayname fr" v-else>
+                      {{Teams[item.Id[3]].Name}}
+                      </div>                  
+                    </el-col>
+                    <el-col :span="2">
+                      <div class="grid-content fc">
+                        <img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + item.Id[3] + '.jpg'" class="img">
+                      </div>                 
+                    </el-col>                     
+                  </el-row>
+                </div>
+              </div>
+            </div>
+            <div v-else-if="flag==12">
+              <div  >
+                <div class="table">
+                  <el-row :gutter="3"  class="list" v-for="(item, name, index4) in PeriodArray.Schedule" :key='index4'>
+                    <el-col :span="5">
+                      <div class="grid-content little-word">
+                      <p :lastdate="lastDate[index]">{{lastDate[index] | filterdatatime}}</p>
+                      </div>
+                    </el-col>
+                    <el-col :span="2">
+                      <div class="grid-content fc">
+                        <img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + item.Id[2] + '.jpg'" class="img">
+                      </div>                 
+                    </el-col>                     
+                    <el-col :span="5">
+                      <div class="grid-content homename fl" v-if="Teams[item.Id[2]].ShortName!=''">
+                      {{Teams[item.Id[2]].ShortName}}
+                      </div>
+                      <div class="grid-content homename fl" v-else>
+                      {{Teams[item.Id[2]].Name}}
+                      </div>                  
+                    </el-col>
+                    <el-col :span="3">
+                      <div class="grid-content fc score">
+                        <span v-if="item.Score[0]==='' && item.Score[1]===''">-- : --</span> 
+                        <span v-else>{{item.Score[0]}} : {{item.Score[1]}}</span>                  
+                      </div>
+                    </el-col>
+                    <el-col :span="5">
+                      <div class="grid-content awayname fr" v-if="Teams[item.Id[3]].ShortName!=''">
+                      {{Teams[item.Id[3]].ShortName}}
+                      </div>
+                      <div class="grid-content awayname fr" v-else>
+                      {{Teams[item.Id[3]].Name}}
+                      </div>                  
+                    </el-col>
+                    <el-col :span="2">
+                      <div class="grid-content fc">
+                        <img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + item.Id[3] + '.jpg'" class="img">
+                      </div>                 
+                    </el-col>                     
+                  </el-row>
+                </div>              
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="zhedie-item">
+
+        </div>       
       </div>
       <!--杯赛结束-->
     </div>
@@ -33,6 +130,8 @@ export default {
       'ScheduleArray': {},
       'lunList': {},
       'lunstart': '',
+      'perSchedule11': {},
+      'perSchedule12': {},
       'flag': 1,
       'collapseShow': false,
       'qhs': {},
@@ -43,6 +142,17 @@ export default {
       'preqh': '',
       'nextqh': ''
     };
+  },
+  filters: {
+    filterdatatime: function (input) { // 时间过滤器 template中{{ 需要过滤的值 | 过滤器表达式}}
+      var d = new Date(input);
+      var year = d.getFullYear();
+      var month = d.getMonth() + 1 < 10 ? '0' + (d.getMonth() + 1) : '' + (d.getMonth() + 1);
+      var day = d.getDate() < 10 ? '0' + d.getDate() : '' + d.getDate();
+      var hour = d.getHours() < 10 ? '0' + d.getHours() : '' + d.getHours();
+      var minutes = d.getMinutes();
+      return year + '-' + month + '-' + day + ' ' + hour + ':' + minutes;
+    }
   },
   created () {
       var defaultqh = 'live/Api/Api/index/cc/competitionschedule/id/' + this.compid;
@@ -55,34 +165,34 @@ export default {
           if (this.schedules.Mode === 'Period') { // 杯赛period
             this.PeriodArrays = this.Periods;
             this.flag = 1;
+            var lunarr, lun2, lun;
             for (var period1 in this.PeriodArrays) {
               if (this.PeriodArrays[period1]['Mode'] !== 'None') { // 杯赛none
               this.flag = 11;
-                var perSchedule = this.PeriodArrays[period1]['Schedule']; 
-                for (var lun in perSchedule) {  // a b c d
-                  for (var lun2 in perSchedule[lun]) {
-                    var lunarr = period1 + lun;
-                    if (perSchedule[lun][lun2]['Score'] !== undefined) {
-                      this.lunstart = lunarr;                  
+              this.perSchedule11 = this.PeriodArrays[period1]['Schedule'];
+              for (lun in this.perSchedule11) {  // a b c d
+                  for (lun2 in this.perSchedule11[lun]) {
+                    lunarr = period1 + lun;
+                    if (this.perSchedule11[lun][lun2]['Score'] !== undefined) {
+                      this.lunstart = lunarr;
                     }
                   }
-                this.lunList[lunarr] = lunarr;  // 轮次名
+                this.lunList[lunarr] = lunarr;  // 轮次
                 // console.log(this.lunList[lunarr])
                 }
               } else { // 杯赛group
                 this.flag = 12;
-                var perSchedule = this.PeriodArrays[period1]['Schedule'];
+                this.perSchedule12 = this.PeriodArrays[period1]['Schedule'];
                 this.lunList[period1] = period1;
-                for (var lun2 in perSchedule) {
-                  var lunarr = period1 + lun2;
-                  if (perSchedule[lun2]['Score'] !== undefined) {
+                for (lun2 in this.perSchedule12) {
+                  lunarr = period1 + lun2;
+                  if (this.perSchedule12[lun2]['Score'] !== undefined) {
                     this.lunstart = period1;
                     this.lunList[this.lunstart] = period1;
                   }
                 }
               }
             }
-            // break;
           } else { // 联赛 round
            this.flag = 2;
             // break;
@@ -92,131 +202,28 @@ export default {
       });
   },
   computed: {
-    homeTeamImg () {
-      var hometeamimg = [];
-      for (var i = 0; i < this.schedulesfc.LotteryS.length; i++) {
-        if (this.schedulesfc.LotteryS[i].GameInfo !== null) {
-         var hometeamimgone = this.schedulesfc.LotteryS[i].GameInfo.HomeTeam.Id;
-         var hometeamimgtwo = 'http://static.caishencai.com/tiyu/images/zq-team/' + hometeamimgone + '.jpg';
-         hometeamimg.push(hometeamimgtwo);
+    lastDate () {
+      var lastdate = [];
+      var Date1 = '';
+      for (var perschedule11 in this.perSchedule11) {
+        var itemmatch = ''; itemmatch = this.perSchedule11[perschedule11];
+        for (var item in itemmatch) {
+        var iteminfo = ''; iteminfo = itemmatch[item];
+          if (typeof (iteminfo.Date.value) === 'undefined') {
+            Date1 = parseInt(iteminfo.Date);
+          } else {
+            Date1 = parseInt(iteminfo.Date.value);
+          };
         }
-      }
-      return hometeamimg;
-    },
-    awayTeamImg () {
-     var awayteamimg = [];
-     for (var i = 0; i < this.schedulesfc.LotteryS.length; i++) {
-        if (this.schedulesfc.LotteryS[i].GameInfo !== null) {
-          var awayteamimgone = this.schedulesfc.LotteryS[i].GameInfo.AwayTeam.Id;
-          var awayteamimgtwo = 'http://static.caishencai.com/tiyu/images/zq-team/' + awayteamimgone + '.jpg';
-          awayteamimg.push(awayteamimgtwo);
-        }
-     }
-     return awayteamimg;
+      var strDate = new Date(Date1);
+      lastdate.push(strDate);
+      };
+      return lastdate;
     }
   },
   methods: {
     collapseDetailShow: function () {
       this.collapseShow = !this.collapseShow;
-    },
-    updateDate (qh, index) {
-      var selectedqh = 'live/Api/Api/index/cc/schedule_sfc/id/' + qh;
-      this.$http.jsonp(selectedqh).then(response => {
-        response = response.body;
-        this.schedulesfc = response;
-      }, response => {
-      });
-      this.collapseShow = false;
-      this.selectqh = qh;// 点击事件updateDate触发qh值改变
-
-      for (var i = 0; i < this.qhs.DegreeLst.length; i++) {
-        if (this.qhs.DegreeLst[i] === this.selectqh) {
-            this.selectedindex = i;
-        };
-
-        this.nextindex = (this.selectedindex + 1); // 前一期
-        if (this.nextindex >= this.qhs.DegreeLst.length) { // 点击前一期到最后时 index不再减 为最后一期index-1 即length
-          this.nextindex = this.qhs.DegreeLst.length;
-        }
-        this.nextqh = this.qhs.DegreeLst[this.nextindex];
-        if (this.nextindex === this.qhs.DegreeLst.length) { // 当在最后一期时 加载的数据为length-1
-          this.nextqh = this.qhs.DegreeLst[this.qhs.DegreeLst.length - 1];
-        }
-
-        this.preindex = (this.selectedindex - 1); // 后一期
-        if (this.preindex < 0) {
-          this.preindex = -1;
-        }
-        this.preqh = this.qhs.DegreeLst[this.preindex];
-        if (this.preindex === -1) {   // 最后一期
-          this.preqh = this.qhs.DegreeLst[0];
-        }
-      }
-    },
-    nextDate () { // 前一期
-      var selectedqh = 'live/Api/Api/index/cc/schedule_sfc/id/' + this.nextqh;
-      this.$http.jsonp(selectedqh).then(response => {
-        response = response.body;
-        this.schedulesfc = response;
-      }, response => {
-      });
-      this.selectqh = this.nextqh; // 中间值
-
-      for (var i = 0; i < this.qhs.DegreeLst.length; i++) {
-        if (this.qhs.DegreeLst[i] === this.selectqh) {
-            this.selectedindex = i;
-        };
-
-        this.nextindex = (this.selectedindex + 1); // 前一期
-        if (this.nextindex >= this.qhs.DegreeLst.length) { // 点击前一期到最后时 index不再减 为最后一期index-1 即length
-          this.nextindex = this.qhs.DegreeLst.length;
-        }
-        this.nextqh = this.qhs.DegreeLst[this.nextindex];
-        if (this.nextindex === this.qhs.DegreeLst.length) { // 当在最后一期时 加载的数据为length-1
-          this.nextqh = this.qhs.DegreeLst[this.qhs.DegreeLst.length - 1];
-        }
-
-        this.preindex = (this.selectedindex - 1); // 后一期
-        if (this.preindex < 0) {
-          this.preindex = -1;
-        }
-        this.preqh = this.qhs.DegreeLst[this.preindex];
-        if (this.preindex === -1) {   // 最后一期
-          this.preqh = this.qhs.DegreeLst[0];
-        }
-      }
-    },
-    preDate () { // 后一期
-      var selectedqh = 'live/Api/Api/index/cc/schedule_sfc/id/' + this.preqh;
-      this.$http.jsonp(selectedqh).then(response => {
-        response = response.body;
-        this.schedulesfc = response;
-      }, response => {
-      });
-      this.selectqh = this.preqh; // 中间值
-      for (var i = 0; i <= this.qhs.DegreeLst.length; i++) {
-        if (this.qhs.DegreeLst[i] === this.selectqh) {
-            this.selectedindex = i;
-        };
-
-        this.nextindex = (this.selectedindex + 1); // 前一期
-        if (this.nextindex >= this.qhs.DegreeLst.length) {
-          this.nextindex = this.qhs.DegreeLst.length;
-        }
-        this.nextqh = this.qhs.DegreeLst[this.nextindex];
-        if (this.nextindex === this.qhs.DegreeLst.length) { // 当在最后一期时 加载的数据为length-1
-          this.nextqh = this.qhs.DegreeLst[this.qhs.DegreeLst.length - 1];
-        }
-
-        this.preindex = (this.selectedindex - 1); // 后一期
-        if (this.preindex < 0) {
-          this.preindex = -1;
-        }
-        this.preqh = this.qhs.DegreeLst[this.preindex];
-        if (this.preindex === -1) {   // 最后一期
-          this.preqh = this.qhs.DegreeLst[0];
-        }
-      }
     }
   }
 };

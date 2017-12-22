@@ -1,12 +1,7 @@
 <template>
-  <div class="competition" v-if="comInfos!=undefined && comInfos.id!=undefined">
-    <div class="gameTop">
-      <div class="gameheader-wrap">
-        <el-row class="gameheader">
-          <el-col :span="12"><div class="grid-content"><i class="el-icon-arrow-left el-icon"></i></div></el-col>
-          <el-col :span="12" ><div class="grid-content fr"><i class="el-icon-menu el-icon"></i></div></el-col>
-        </el-row>
-      </div>
+  <div class="competition">
+    <div class="gameTop"  v-if="comInfos!=undefined && comInfos.id!=undefined">
+      <v-headerdetail></v-headerdetail>
       <el-row class="teaminfo-box">
         <el-col :span="24">
           <div class="grid-content right">
@@ -37,12 +32,14 @@
         </el-row>
       </div>
       <router-view></router-view>
-    </div>    
+    </div> 
+    <div v-else class="nodata-mess">暂无信息</div>
   </div>
-  <div v-else class="nodata-mess">暂无信息</div>
 </template>
 
 <script>
+import headerDetail from '../../../components/header/headerDetail';
+
 export default {
   data () {
     return {
@@ -57,6 +54,9 @@ export default {
       this.comInfos = response;
     }, response => {
     });
+  },
+  components: {
+    'v-headerdetail': headerDetail
   }
 };
 </script>
@@ -73,34 +73,6 @@ export default {
   p{
     margin:0;
     padding:0;
-  }
-  .gameheader-wrap{
-    position:absolute;
-    top:0;
-    left:0;
-    width:100%;
-    height:50px;
-    line-height:50px;
-    background:#fff;
-    .gameheader{
-      background:#f32b1b;
-      color:#fff;
-      height:50px;
-      line-height:50px;
-      text-align:center;
-      .el-icon{
-        font-size:28px;
-        padding:10px 0;
-      }
-      .el-icon-arrow-left{
-        float:left;
-        padding-left:4px;
-      }
-      .el-icon-menu{
-        float:right;
-        padding-right:8px;
-      }
-    }
   }
   .teaminfo-box{
     width:100%;

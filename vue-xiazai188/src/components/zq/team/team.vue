@@ -1,12 +1,7 @@
 <template>
   <div class="team" v-if="TeamInfos!=undefined && teaminfo.id!=undefined">
     <div class="gameTop">
-      <div class="gameheader-wrap">
-        <el-row class="gameheader">
-          <el-col :span="12"><div class="grid-content"><i class="el-icon-arrow-left el-icon"></i></div></el-col>
-          <el-col :span="12" ><div class="grid-content fr"><i class="el-icon-menu el-icon"></i></div></el-col>
-        </el-row>
-      </div>
+      <v-headerdetail></v-headerdetail>
       <el-row class="teaminfo-box">
         <el-col :span="24">
           <div class="grid-content right">
@@ -43,6 +38,8 @@
 </template>
 
 <script>
+import headerDetail from '../../../components/header/headerDetail';
+
 export default {
   data () {
     return {
@@ -59,6 +56,9 @@ export default {
       this.TeamInfos = this.teaminfo.TeamInfo;
     }, response => {
     });
+  },
+  components: {
+    'v-headerdetail': headerDetail
   }
 };
 </script>

@@ -29,6 +29,8 @@ import schedule from '@/components/zq/competition/schedule';
 import shooter from '@/components/zq/competition/shooter';
 import standing from '@/components/zq/competition/standing';
 
+import schedule_jclq from '@/components/lq/schedule_jclq';
+
 Vue.use(Router);
 
 export default new Router({
@@ -62,7 +64,14 @@ export default new Router({
     {
       path: '/lq',
       name: 'lq',
-      component: lq
+      component: lq,
+      children: [
+        {
+          path: '/lq/schedule_jc',
+          component: schedule_jclq
+        }        
+      ],
+      redirect: '/lq/schedule_jc'
     },
     {
       path: '/zq/game/gamegoaldata/:matchid',

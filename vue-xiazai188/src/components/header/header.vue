@@ -3,7 +3,7 @@
     <el-row class="header-top bg-red">
       <el-col :span="3">
         <div class="grid-content">
-          <i class="el-icon-menu"></i>
+          <el-button type="text" @click="menuTabShow = !menuTabShow"><i class="el-icon-menu"></i></el-button>
         </div>
       </el-col>
       <el-col :span="18">
@@ -16,6 +16,7 @@
       </el-col>
       <el-col :span="3"><div class="grid-content"><i class="el-icon-search"></i></div></el-col>
     </el-row>
+    <v-menutab v-show="menuTabShow"></v-menutab> 
     <router-view></router-view>
   </div>
 </template>
@@ -24,16 +25,9 @@
 import menutab from '../../components/header/menutab';
 
 export default {
-  props: {
-    ruanjian: {
-      type: Object
-    },
-    games: {
-      type: Object
-    }
-  },
   data () {
     return {
+    'menuTabShow': false
     };
   },
   components: {
