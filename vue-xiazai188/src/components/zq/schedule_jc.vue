@@ -156,7 +156,7 @@ export default {
       var strcurDate = new Date(predate);
       var defalutYear = strcurDate.getFullYear();
       var defalutMon = (strcurDate.getMonth() + 1) >= 10 ? (strcurDate.getMonth() + 1) : '0' + (strcurDate.getMonth() + 1);
-      console.log(strcurDate.getDate());
+      // console.log(strcurDate.getDate());
       var defalutDate = strcurDate.getDate() >= 10 ? strcurDate.getDate() : '0' + strcurDate.getDate();
       var defalutTime = defalutYear + '-' + defalutMon + '-' + defalutDate;
       this.value1 = new Date(defalutTime);
