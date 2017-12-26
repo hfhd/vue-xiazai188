@@ -5,7 +5,7 @@
           <div class="well well-sm">
             <div class="fl">
                 <i class="sm-line"></i>
-                近期战绩
+                球员阵容
             </div>
             <div class="fr">
               <ul class="fr-tab">

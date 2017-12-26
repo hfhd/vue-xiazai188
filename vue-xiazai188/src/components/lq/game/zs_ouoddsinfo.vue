@@ -1,11 +1,11 @@
 <template>
-  <div class="zs-ahoddsinfo">
+  <div class="zs-ouoddsinfo">
     <div class="zhegie-wrap">
       <div calss="zhedie-box">
           <div class="well well-sm">
             <div class="fl">
                 <i class="sm-line"></i>
-                亚盘列表        
+                大小盘列表        
             </div>
           </div>
           <div class="zhedie-con">
@@ -18,12 +18,12 @@
                 </el-row>
                 <el-row :gutter="10" class="table-header little-word">
                   <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">上盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">下盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">让球</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">上盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">下盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">让球</div></el-col>                  
+                  <el-col :span="3"><div class="grid-content fc">大球赔率</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">总进球</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">小球赔率</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">大球赔率</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">总进球</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">小球赔率</div></el-col>                  
                 </el-row>
                 <div class="table-body" v-if="OddsDatass!=undefined && OddsDatass.length!=0">
                   <div v-for="(OddsDatas, index) in OddsDatass" :key="index" @click="ShowLogs(OddsDatas.CId)" class="pl-list">
@@ -34,11 +34,11 @@
                         <div class="fc" v-else>--</div>
                       </el-col>
                       <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]}}</div>
+                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]}}</div>
                         <div class="fc" v-else>--</div>
                       </el-col>  
                       <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]}}</div>
+                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]}}</div>
                         <div class="fc" v-else>--</div>
                       </el-col>
                       <el-col :span="3">
@@ -46,11 +46,11 @@
                         <div class="fc" v-else>--</div>
                       </el-col>
                       <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[1]!=undefined && OddsDatas.Logs[0].Data[1]!=''">{{OddsDatas.Logs[0].Data[1]}}</div>
+                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[2]!=undefined && OddsDatas.Logs[0].Data[2]!=''">{{OddsDatas.Logs[0].Data[2]}}</div>
                         <div class="fc" v-else>--</div>
                       </el-col>  
                       <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[2]!=undefined && OddsDatas.Logs[0].Data[2]!=''">{{OddsDatas.Logs[0].Data[2]}}</div>
+                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[1]!=undefined && OddsDatas.Logs[0].Data[1]!=''">{{OddsDatas.Logs[0].Data[1]}}</div>
                         <div class="fc" v-else>--</div>
                       </el-col>                                                           
                     </el-row>                    
@@ -61,37 +61,37 @@
             </div>
           </div>
           <div class="pl-dialog">
-            <el-dialog :title="CurCName + ' 亚盘赔率变化'" :visible.sync="dialogTableVisible" top='10px' width="96%" open="LoadLogs" :cidlog="cidLog">
+            <el-dialog :title="CurCName + ' 大小盘赔率变化'" :visible.sync="dialogTableVisible" top='10px' width="96%" open="LoadLogs" :cidlog="cidLog" >
                <div>
                 <el-row :gutter="10" class="table-header little-word">
                   <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
                   <el-col :span="18"><div class="grid-content fc">盘口</div></el-col>
                 </el-row>
                 <el-row :gutter="10" class="table-header little-word">
-                  <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">上盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">下盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">让球</div></el-col>
-                  <el-col :span="9"><div class="grid-content fc">变化时间</div></el-col>              
+                  <el-col :span="5"><div class="grid-content fc">公司</div></el-col>
+                  <el-col :span="4"><div class="grid-content fc">大球赔率</div></el-col>
+                  <el-col :span="4"><div class="grid-content fc">总进球</div></el-col>
+                  <el-col :span="4"><div class="grid-content fc">小球赔率</div></el-col>
+                  <el-col :span="7"><div class="grid-content fc">变化时间</div></el-col>              
                 </el-row>
                 <div class="table-body" v-if="OddsDatass!=undefined && OddsDatass.length!=0">
                   <div >
                     <div  v-if="CurLogs!=undefined && CurLogs.length!=0">
                       <el-row :gutter="10" class="pl-list" :key="index" v-for="(Logs, index) in CurLogs" >
-                        <el-col :span="6" class="company" ><div class="grid-content fc w-blue" v-if="CurCName!=''">{{CurCName}}</div><div v-else>--</div></el-col>
-                        <el-col :span="3">
+                        <el-col :span="5" class="company" ><div class="grid-content fc w-blue" v-if="CurCName!=''">{{CurCName}}</div><div v-else>--</div></el-col>
+                        <el-col :span="4">
                           <div class="grid-content fc" v-if="Logs.Data[0]!=undefined && Logs.Data[0]!=''">{{Logs.Data[0]}}</div>
                           <div class="fc" v-else>--</div>
                         </el-col>
-                        <el-col :span="3">
-                          <div class="grid-content fc" v-if="Logs.Data[1]!=undefined && Logs.Data[1]!=''">{{Logs.Data[1]}}</div>
-                          <div class="fc" v-else>--</div>
-                        </el-col>  
-                        <el-col :span="3">
+                        <el-col :span="4">
                           <div class="grid-content fc" v-if="Logs.Data[2]!=undefined && Logs.Data[2]!=''">{{Logs.Data[2]}}</div>
                           <div class="fc" v-else>--</div>
+                        </el-col>  
+                        <el-col :span="4">
+                          <div class="grid-content fc" v-if="Logs.Data[1]!=undefined && Logs.Data[1]!=''">{{Logs.Data[1]}}</div>
+                          <div class="fc" v-else>--</div>
                         </el-col>
-                        <el-col :span="9">
+                        <el-col :span="7">
                           <div class="grid-content fc" :pldate="plDate">{{plDate[index] | filterdatatime}}</div>
                         </el-col>                                                          
                       </el-row>
@@ -113,7 +113,7 @@ export default {
   data () {
     return {
       'matchid': this.$route.params.matchid,
-      'ahoddsinfo': {},
+      'ouoddsinfo': {},
       'OddsDatass': {},
       'ComLogs': {},
       'dialogTableVisible': false,
@@ -123,11 +123,11 @@ export default {
     };
   },
   created () {
-    var zs_ahoddsinfoUrl = 'live/Api/Api/index/cc/zs_ahoddsinfo/id/' + this.matchid;
-    this.$http.jsonp(zs_ahoddsinfoUrl).then(response => {
+    var zs_ouoddsinfoUrl = 'live/Api/Api/index/cc/zs_ouoddsinfo/id/' + this.matchid;
+    this.$http.jsonp(zs_ouoddsinfoUrl).then(response => {
       response = response.body;
-      this.ahoddsinfo = response;
-      this.OddsDatass = this.ahoddsinfo.OddsDatas;
+      this.ouoddsinfo = response;
+      this.OddsDatass = this.ouoddsinfo.OddsDatas;
     }, response => {});
   },
   filters: {

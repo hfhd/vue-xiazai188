@@ -20,7 +20,7 @@
     </el-row>
     <div class="listCon-wrap" v-if="schedulejc.LotteryS!=undefined && schedulejc.LotteryS.length!=0">
       <div v-for="(item, index) in schedulejc.LotteryS" :key="item.id" class="itemList">
-        <router-link :to="'/lq/game/gamegoaldata/' + item.matchId" :matchId="item.matchId">
+        <router-link :to="'/lq/game/b_gamegoaldata/' + item.matchId" :matchId="item.matchId">
           <el-row v-if="item.GameInfo!=null">
             <el-col :span="8">
               <div class="grid-content left">

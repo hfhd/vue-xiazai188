@@ -61,7 +61,7 @@
             </div>
           </div>
           <div class="pl-dialog">
-            <el-dialog :title="CurCName + ' 亚盘赔率变化'" :visible.sync="dialogTableVisible" top='10px' width="96%" open="LoadLogs" :cidlog="cidLog">
+            <el-dialog :title="CurCName + ' 亚盘赔率变化'" :visible.sync="dialogTableVisible" top='10px' width="96%" open="LoadLogs" :cidlog="cidLog" >
                <div>
                 <el-row :gutter="10" class="table-header little-word">
                   <el-col :span="6"><div class="grid-content fc">公司</div></el-col>

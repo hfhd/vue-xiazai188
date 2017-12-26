@@ -46,9 +46,9 @@ import bgameanalyse from '@/components/lq/game/gameanalyse';
 import bstat from '@/components/lq/game/stat';
 import bgameprediction from '@/components/lq/game/gameprediction';
 
-import bzs_hdaoddsinfo from '@/components/lq/game/zs_hdaoddsinfo';
-import bzs_ahoddsinfo from '@/components/lq/game/zs_ahoddsinfo';
-import bzs_ouoddsinfo from '@/components/lq/game/zs_ouoddsinfo';
+import b_hdaoddsinfo from '@/components/lq/game/zs_hdaoddsinfo';
+import b_ahoddsinfo from '@/components/lq/game/zs_ahoddsinfo';
+import b_ouoddsinfo from '@/components/lq/game/zs_ouoddsinfo';
 
 Vue.use(Router);
 
@@ -88,7 +88,7 @@ export default new Router({
         {
           path: '/lq/schedule_jc',
           component: schedule_jclq
-        }        
+        }
       ],
       redirect: '/lq/schedule_jc'
     },
@@ -197,23 +197,23 @@ export default new Router({
       component: bgame,
       children: [
         {
-          path: '/lq/game/gamegoaldata/:matchid',
+          path: '/lq/game/b_gamegoaldata/:matchid',
           component: bgamegoaldata
         },
         {
-          path: '/lq/game/gameanalyse/:matchid',
+          path: '/lq/game/b_gameanalyse/:matchid',
           component: banalyse,
           children: [
             {
-              path: '/lq/game/gameanalyse/:matchid',
+              path: '/lq/game/b_gameanalyse/:matchid',
               component: bgameanalyse
             },
             {
-              path: '/lq/game/stat/:matchid',
+              path: '/lq/game/b_gamestat/:matchid',
               component: bstat
             },
             {
-              path: '/lq/game/gameprediction/:matchid',
+              path: '/lq/game/b_gameprediction/:matchid',
               component: bgameprediction
             }
           ]
@@ -223,16 +223,16 @@ export default new Router({
           component: bodds,
           children: [
             {
-              path: '/lq/game/zs_hdaoddsinfo/:matchid',
-              component: bzs_hdaoddsinfo
+              path: '/lq/game/b_hdaoddsinfo/:matchid',
+              component: b_hdaoddsinfo
             },
             {
-              path: '/lq/game/zs_ahoddsinfo/:matchid',
-              component: bzs_ahoddsinfo
+              path: '/lq/game/b_ahoddsinfo/:matchid',
+              component: b_ahoddsinfo
             },
             {
-              path: '/lq/game/zs_ouoddsinfo/:matchid',
-              component: bzs_ouoddsinfo
+              path: '/lq/game/b_ouoddsinfo/:matchid',
+              component: b_ouoddsinfo
             }
           ]
         }
