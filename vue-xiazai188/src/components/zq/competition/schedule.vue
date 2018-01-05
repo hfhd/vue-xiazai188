@@ -3,11 +3,11 @@
     <div v-if="Schedules!=undefined || Periods!=undefined">
       <div v-if="schedules.Mode == 'Period'">
         <el-row class="dataTab-wrap bg-gray">
-          <el-col :span="6"><div class="grid-content pre-data" @click="nextDate()" :index="nextindex" :qh="nextqh">前一期</div></el-col>
+          <el-col :span="6"><div class="grid-content pre-data">前一期</div></el-col>
            <el-col :span="12" class="qhBox">
              <div class="grid-content curdata" @click="collapseDetailShow">{{lunList[lunstart]}}</div><i class="el-icon-caret-bottom el-icon-qh"></i>
            </el-col>
-          <el-col :span="6"><div class="grid-content next-data" @click="preDate()" :index="preindex" :qh="preqh">后一期</div></el-col>
+          <el-col :span="6"><div class="grid-content next-data">后一期</div></el-col>
         </el-row>
         <div class="collapse" v-show="collapseShow">
             <div class="item"><a class="grid-content" v-for="(lunlist, lun1, index) in lunList" :key="index">{{lunlist}}</a>

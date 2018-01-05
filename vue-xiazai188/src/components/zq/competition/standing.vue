@@ -32,7 +32,7 @@
                     </el-col>                   
                     <el-col :span="8">
                       <div class="grid-content" v-if="Teams[Total.Team].ShortName!=undefined && Teams[Total.Team].ShortName!=''">
-                        {{Teams[Total.Team].ShortName}}
+                        <a :href="'#/zq/team/teamsc/' + Total.Team">{{Teams[Total.Team].ShortName}}</a>
                       </div>
                       <div class="grid-content" v-else>Teams[Total.Team].Name</div>
                     </el-col>
@@ -77,7 +77,7 @@
                     </el-col>                   
                     <el-col :span="8">
                       <div class="grid-content" v-if="Teams[Home.Team].ShortName!=undefined && Teams[Home.Team].ShortName!=''">
-                        {{Teams[Home.Team].ShortName}}
+                        <a :href="'#/zq/team/teamsc/' + Home.Team">{{Teams[Home.Team].ShortName}}</a>
                       </div>
                       <div class="grid-content" v-else>Teams[Home.Team].Name</div>
                     </el-col>
@@ -122,7 +122,7 @@
                     </el-col>                   
                     <el-col :span="8">
                       <div class="grid-content" v-if="Teams[Away.Team].ShortName!=undefined && Teams[Away.Team].ShortName!=''">
-                        {{Teams[Away.Team].ShortName}}
+                         <a :href="'#/zq/team/teamsc/' + Away.Team">{{Teams[Away.Team].ShortName}}</a>
                       </div>
                       <div class="grid-content" v-else>Teams[Away.Team].Name</div>
                     </el-col>
@@ -181,7 +181,7 @@
                         </el-col>                   
                         <el-col :span="8">
                           <div class="grid-content" v-if="Teams[Total.Team].ShortName!=undefined && Teams[Total.Team].ShortName!=''">
-                            {{Teams[Total.Team].ShortName}}
+                            <a :href="'#/zq/team/teamsc/' + Total.Team">{{Teams[Total.Team].ShortName}}</a>
                           </div>
                           <div class="grid-content" v-else>Teams[Total.Team].Name</div>
                         </el-col>

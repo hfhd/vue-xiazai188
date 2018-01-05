@@ -18,19 +18,19 @@
             </el-row>
             <el-row :gutter="10">
               <el-col :span="6"><div class="grid-content little-word">球场:</div></el-col>
-              <el-col :span="18"><div class="grid-content" v-if="TeamInfos.Stadium!=undefined && TeamInfos.Stadium!=''">{{TeamInfos.Stadium}}</div><div v-else>--</div></el-col>
+              <el-col :span="18"><div class="grid-content" v-if="TeamInfos.Arena!=undefined && TeamInfos.Arena!='' && TeamInfos.Arena.Name!=undefined && TeamInfos.Arena.Name!=''">{{TeamInfos.Arena.Name}}</div><div v-else>--</div></el-col>
             </el-row> 
             <el-row :gutter="10">
               <el-col :span="6"><div class="grid-content little-word">容量:</div></el-col>
-              <el-col :span="18"><div class="grid-content" v-if="TeamInfos.Capacity!=undefined && TeamInfos.Capacity!=''">{{TeamInfos.Capacity}}</div><div v-else>--</div></el-col>
+              <el-col :span="18"><div class="grid-content" v-if="TeamInfos.Arena!=undefined && TeamInfos.Arena!='' && TeamInfos.Arena.Capacity!=undefined && TeamInfos.Arena.Capacity!=''">{{TeamInfos.Arena.Capacity}}</div><div v-else>--</div></el-col>
             </el-row> 
-            <el-row :gutter="10" v-if="teaminfo.coach!=undefined && teaminfo.coach!=''">
-              <el-col :span="6"><div class="grid-content little-word">主教练:</div></el-col>
-              <el-col :span="18"><div class="grid-content" v-if="teaminfo.coach.Name!=undefined && teaminfo.coach.Name!=''">{{teaminfo.coach.Name}}</div><div v-else>--</div></el-col>
+            <el-row :gutter="10" v-if="Coach!=undefined && Coach!=''">
+              <el-col :span="6"><div class="grid-content little-word" v-if="Coach.Position!=undefined && Coach.Position!=''">{{Coach.Position}}</div><div v-else  class="grid-content little-word" >--</div></el-col>
+              <el-col :span="18"><div class="grid-content" v-if="Coach.Name!=undefined && Coach.Name!=''">{{Coach.Name}}</div><div v-else>--</div></el-col>
             </el-row> 
             <el-row :gutter="10">
               <el-col :span="6"><div class="grid-content little-word">官网:</div></el-col>
-              <el-col :span="18"><a :href="TeamInfos.website" class="grid-content w_blue" v-if="TeamInfos.website!=undefined && TeamInfos.website!=''">{{TeamInfos.website}}</a><div v-else>--</div></el-col>
+              <el-col :span="18"><a :href="TeamInfos.website" class="grid-content w_blue" v-if="TeamInfos.Website!=undefined && TeamInfos.Website!=''">{{TeamInfos.Website}}</a><div v-else>--</div></el-col>
             </el-row> 
             <el-row :gutter="10">
               <el-col :span="6"><div class="grid-content little-word">Email:</div></el-col>
@@ -49,8 +49,8 @@
             <i class="sm-line"></i>
               球队简介        
           </div> 
-          <div class="zhedie-con teamintro" v-if="TeamInfos.Profile!=undefined && TeamInfos.Profile!=''">    
-          <p>{{TeamInfos.Profile}}</p>                                                        
+          <div class="zhedie-con teamintro" v-if="TeamInfos.Intro!=undefined && TeamInfos.Intro!=''" >    
+          <p>{{Intro}}</p>                                                        
           </div>
           <div class="nodata-mess" v-else>暂无简介</div>  
         </div>
@@ -66,17 +66,32 @@ export default {
     return {
       'teamid': this.$route.params.teamid,
       'teaminfo': {},
-      'TeamInfos': {}
+      'TeamInfos': {},
+      'Coach': {},
+      'Intro': ''
     };
   },
   created () {
-    var teaminforUrl = 'live/Api/Api/index/cc/teaminfo/id/' + this.teamid;
+    var teaminforUrl = 'live/Api/Api/index/cc/b_teaminfo/id/' + this.teamid;
     this.$http.jsonp(teaminforUrl).then(response => {
       response = response.body;
       this.teaminfo = response;
       this.TeamInfos = this.teaminfo.TeamInfo;
+      this.Coach = this.teaminfo.Coach;
+      if (this.Coach !== undefined && this.Coach !== '') {
+        this.Coach = this.Coach[0];
+      }
+      if (this.TeamInfos.Intro !== undefined && this.TeamInfos.Intro !== '') {  // 用浏览器内部转换器实现html解码
+        var text = this.TeamInfos.Intro;
+        var temp = document.createElement('div');
+        temp.innerHTML = text;
+        this.Intro = temp.innerText || temp.textContent;
+        temp = null;
+      }
     }, response => {
     });
+  },
+  computed: {
   }
 };
 </script>

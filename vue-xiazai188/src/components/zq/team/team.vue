@@ -5,10 +5,8 @@
       <el-row class="teaminfo-box">
         <el-col :span="24">
           <div class="grid-content right">
-            <a href>
               <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + TeamInfos.Id + '.jpg'"></p>
               <p class="name" v-if="TeamInfos.ShortName!=''">{{TeamInfos.ShortName}}</p><p class="name" v-else>{{TeamInfos.Name}}</p>
-            </a>
           </div>
         </el-col>
       </el-row>

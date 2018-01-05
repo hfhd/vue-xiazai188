@@ -5,10 +5,8 @@
       <el-row class="teaminfo-box">
         <el-col :span="24">
           <div class="grid-content right">
-            <a href>
-              <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + TeamInfos.Id + '.jpg'"></p>
+              <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/teamInfo/' + TeamInfos.Id + '.jpg'"></p>
               <p class="name" v-if="TeamInfos.ShortName!=''">{{TeamInfos.ShortName}}</p><p class="name" v-else>{{TeamInfos.Name}}</p>
-            </a>
           </div>
         </el-col>
       </el-row>
@@ -16,17 +14,17 @@
         <el-row class="">
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/team/teamsc/' + teamid" >球队信息<i class="el-icon-caret-top"></i></router-link>
+              <router-link :to="'/lq/team/teamsc/' + teamid" >球队信息<i class="el-icon-caret-top"></i></router-link>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/team/teamstats/' + teamid" >球队数据<i class="el-icon-caret-top"></i></router-link>
+              <router-link :to="'/lq/team/teamstats/' + teamid" >球队数据<i class="el-icon-caret-top"></i></router-link>
             </div>            
           </el-col>
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/team/teamzr/' + teamid" >阵容<i class="el-icon-caret-top"></i></router-link>
+              <router-link :to="'/lq/team/teamzr/' + teamid" >阵容<i class="el-icon-caret-top"></i></router-link>
             </div>            
           </el-col>
         </el-row>
@@ -49,7 +47,7 @@ export default {
     };
   },
   created () {
-    var teaminforUrl = 'live/Api/Api/index/cc/teaminfo/id/' + this.teamid;
+    var teaminforUrl = 'live/Api/Api/index/cc/b_teaminfo/id/' + this.teamid;
     this.$http.jsonp(teaminforUrl).then(response => {
       response = response.body;
       this.teaminfo = response;

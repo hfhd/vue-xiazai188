@@ -8,6 +8,7 @@
                 近年赛绩
           </div> 
           <div class="zhedie-con" v-if="Historys!=undefined && Historys.length!=0">
+              <div class="hd" :selectnum="selectNum">近{{selectNum}}场交战</div>     
               <el-row :gutter="3" class="table-header little-word">
                 <el-col :span="5"><div class="grid-content fl">赛事</div></el-col>
                 <el-col :span="5"><div class="grid-content fc">主队</div></el-col>
@@ -78,18 +79,20 @@
                 未来赛程
           </div> 
           <div class="zhedie-con" v-if="Fixtures!=undefined && Fixtures.length!=0">
+              <div class="hd" :selectnumfix="selectNumFix">近{{selectNumFix}}场交战</div>     
               <el-row :gutter="3" class="table-header little-word">
-                <el-col :span="4"><div class="grid-content fl">赛事</div></el-col>
+                <el-col :span="5"><div class="grid-content fl">赛事</div></el-col>
                 <el-col :span="7"><div class="grid-content fc">主队</div></el-col>
                 <el-col :span="7"><div class="grid-content fc">客队</div></el-col>
-                <el-col :span="6"><div class="grid-content fc">时间</div></el-col>
+                <el-col :span="5"><div class="grid-content fc">时间</div></el-col>
               </el-row>          
               <div class="table">
                 <el-row :gutter="3" v-for="(Fixture, index) in Fixtures" :key='index' v-if="index<10" class="list">
-                  <el-col :span="4">
+                  <el-col :span="5">
                     <div class="grid-content little-word">
-                      <div v-if="Competitions[Fixture.Id[1]].ShortName!=''">{{Competitions[Fixture.Id[1]].ShortName}}</div>
-                      <div v-else>{{Competitions[Fixture.Id[1]].Name}}</div>
+                      <p v-if="Competitions[Fixture.Id[1]].ShortName!=''">{{Competitions[Fixture.Id[1]].ShortName}}</p>
+                      <p v-else>{{Competitions[Fixture.Id[1]].Name}}</p>
+                      <p :fixturedate="FixtureDate[index]">{{FixtureDate[index] | filterdatatime}}</p>
                     </div>
                   </el-col>
                   <el-col :span="2">
@@ -119,7 +122,7 @@
                   <el-col :span="2">
                     <img :src="'http://static.caishencai.com/tiyu/images/zq-team/' + Fixture.Id[3] + '.jpg'" class="img">                                    
                   </el-col>                  
-                  <el-col :span="6">
+                  <el-col :span="5">
                      <div class="grid-content fc little-word" :fixturedate="FixtureDate[index]">{{FixtureDate[index] | filterdatatime}}</div>         
                   </el-col>
                 </el-row>
@@ -324,6 +327,24 @@ export default {
         fixturedate.push(Date1);
       }
       return fixturedate;
+    },
+    selectNum () {
+      var num = 0;
+      if (this.Historys.length > 10) {
+        num = 10;
+      } else {
+         num = this.Historys.length;
+      }
+      return num;
+    },
+    selectNumFix () {
+      var num = 0;
+      if (this.Fixtures.length > 10) {
+        num = 10;
+      } else {
+         num = this.Fixtures.length;
+      }
+      return num;
     }
   }
 };
@@ -438,12 +459,16 @@ ul,li,ol{
       background:#f4f4f4;
       padding:5px 0;
       border-radius:2px;
+      font-size:13px;
+    }
+    .awayname,.homename {
+      font-size:13px;
     }
     .img{
-    width:25px;
-    height:25px;
-    display:inline-block;
-    align-items:center;
+      width:25px;
+      height:25px;
+      display:inline-block;
+      align-items:center;
     }
   }
 }
@@ -468,5 +493,11 @@ ul,li,ol{
       padding:5px 0;
     }
   } 
+}
+.zhedie-con{
+  .hd{
+    font-size:14px;
+    padding: 10px 10px 0;
+  }
 }
 </style>

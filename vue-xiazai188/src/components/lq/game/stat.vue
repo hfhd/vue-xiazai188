@@ -23,7 +23,7 @@
             <li v-for="(AStat, index) in AStatsT" :key="index"><div class="grid-content f20" v-if="AStat!=undefined && AStat.length!=0"">{{AStat}}</div><div v-else class="f20">*</div></li>
           </ul>
         </div>
-        <div v-else class="nodata-mess">暂无信息</div>
+        <div v-else class="nodata-mess">暂无数据</div>
       </div>
     </div>
     <div class="pl-dialog">
@@ -66,11 +66,11 @@
                         </el-col>
                       </el-row>
                   </div>
-                  <div class="nodata-mess" v-else>暂无数据</div> 
+                  <div class="nodata-mess" v-else>暂无主队球员统计数据</div> 
                 </el-col>
               </el-row>             
             </div>
-            <div class="nodata-mess" v-else>暂无主队数据</div>                 
+            <div class="nodata-mess" v-else>暂无主队球员统计数据</div>                 
           </div>
           <!--主-->
           <div class="table-body"  v-show="cetabItemShowb" >
@@ -106,11 +106,11 @@
                         </el-col>
                       </el-row>
                   </div>
-                  <div class="nodata-mess" v-else>暂无数据</div> 
+                  <div class="nodata-mess" v-else>暂无客队球员统计数据</div> 
                 </el-col>
               </el-row>             
             </div>
-            <div class="nodata-mess" v-else>暂无客队数据</div> 
+            <div class="nodata-mess" v-else>暂无客队球员统计数据</div> 
           </div>
           <!--客-->                
         </div>               
@@ -177,12 +177,18 @@ export default {
     this.$http.jsonp(gamegoaldataUrl).then(response => {
       response = response.body;
       this.gamestat = response;
-      this.HStatsT = this.gamestat.H_Stat_Total;
-      this.AStatsT = this.gamestat.A_Stat_Total;
-      this.HStats = this.gamestat.H_Stat;
-      this.AStats = this.gamestat.A_Stat;
-      this.HomePalyerInfo = this.HStats[0];
-      this.AwayPalyerInfo = this.AStats[0];
+      if (this.gamestat !== undefined && this.gamestat !== '') {
+        this.HStatsT = this.gamestat.H_Stat_Total;
+        this.AStatsT = this.gamestat.A_Stat_Total;
+        this.HStats = this.gamestat.H_Stat;
+        this.AStats = this.gamestat.A_Stat;
+      }
+      if (this.HStats !== undefined && this.HStats !== '') {
+        this.HomePalyerInfo = this.HStats[0];
+      }
+      if (this.AStats !== undefined && this.AStats !== '') {
+        this.AwayPalyerInfo = this.AStats[0];
+      }
     }, response => {});
   },
   computed: {

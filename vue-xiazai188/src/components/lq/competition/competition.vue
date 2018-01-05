@@ -5,7 +5,7 @@
       <el-row class="teaminfo-box">
         <el-col :span="24">
           <div class="grid-content right">
-              <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/zq-competition/' + comInfos.id + '.jpg'"></p>
+              <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/lq-competition/' + comInfos.id + '.jpg'"></p>
               <p class="name" v-if="comInfos.ShortName!=''">{{comInfos.ShortName}}</p><p class="name" v-else>{{comInfos.Name}}</p>
           </div>
         </el-col>
@@ -14,17 +14,17 @@
         <el-row class="">
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/competition/schedule/' + compid" >赛程<i class="el-icon-caret-top"></i></router-link>
+              <router-link :to="'/lq/competition/schedule/' + compid" >赛程<i class="el-icon-caret-top"></i></router-link>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/competition/standing/' + compid" >积分榜<i class="el-icon-caret-top"></i></router-link>
+              <router-link :to="'/lq/competition/standing/' + compid" >积分榜<i class="el-icon-caret-top"></i></router-link>
             </div>            
           </el-col>
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/competition/shooter/' + compid" >射手榜<i class="el-icon-caret-top"></i></router-link>
+              <router-link :to="'/lq/competition/shooter/' + compid" >统计<i class="el-icon-caret-top"></i></router-link>
             </div>            
           </el-col>
         </el-row>
@@ -46,7 +46,7 @@ export default {
     };
   },
   created () {
-    var compinforUrl = 'live/Api/Api/index/cc/competitioninfo/id/' + this.compid;
+    var compinforUrl = 'live/Api/Api/index/cc/b_competitioninfo/id/' + this.compid;
     this.$http.jsonp(compinforUrl).then(response => {
       response = response.body;
       this.comInfos = response;

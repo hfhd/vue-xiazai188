@@ -152,8 +152,8 @@ export default {
       });
     },
     nextDate (curdate) {
-      var predate = curdate.setDate(curdate.getDate() + 1);
-      var strcurDate = new Date(predate);
+      var nextdate = curdate.setDate(curdate.getDate() + 1);
+      var strcurDate = new Date(nextdate);
       var defalutYear = strcurDate.getFullYear();
       var defalutMon = (strcurDate.getMonth() + 1) >= 10 ? (strcurDate.getMonth() + 1) : '0' + (strcurDate.getMonth() + 1);
       // console.log(strcurDate.getDate());

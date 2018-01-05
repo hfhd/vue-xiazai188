@@ -50,6 +50,11 @@ import b_hdaoddsinfo from '@/components/lq/game/zs_hdaoddsinfo';
 import b_ahoddsinfo from '@/components/lq/game/zs_ahoddsinfo';
 import b_ouoddsinfo from '@/components/lq/game/zs_ouoddsinfo';
 
+import bcompetition from '@/components/lq/competition/competition';
+import bschedule from '@/components/lq/competition/schedule';
+import bshooter from '@/components/lq/competition/shooter';
+import bstanding from '@/components/lq/competition/standing';
+
 Vue.use(Router);
 
 export default new Router({
@@ -235,6 +240,24 @@ export default new Router({
               component: b_ouoddsinfo
             }
           ]
+        }
+      ]
+    },
+    {
+      path: '/lq/competition/schedule/:compid',
+      component: bcompetition,
+      children: [
+        {
+          path: '/lq/competition/schedule/:compid',
+          component: bschedule
+        },
+        {
+          path: '/lq/competition/shooter/:compid',
+          component: bshooter
+        },
+        {
+          path: '/lq/competition/standing/:compid',
+          component: bstanding
         }
       ]
     }

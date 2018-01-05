@@ -1,5 +1,5 @@
 <template>
-  <div class="zs-ahoddsinfo">
+  <div class="zs-hdaoddsinfo">
     <div class="zhegie-wrap">
       <div calss="zhedie-box">
           <div class="well well-sm">
@@ -18,67 +18,83 @@
                 </el-row>
                 <el-row :gutter="10" class="table-header little-word">
                   <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">上盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">下盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">让球</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">上盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">下盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">让球</div></el-col>                  
+                  <el-col :span="3"><div class="grid-content fc">主赔</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">客赔</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">让分</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">主赔</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">客赔</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">让分</div></el-col>
                 </el-row>
-                <div class="table-body" v-if="OddsDatass!=undefined && OddsDatass.length!=0">
-                  <div v-for="(OddsDatas, index) in OddsDatass" :key="index" @click="ShowLogs(OddsDatas.CId)" class="pl-list">
-                    <el-row :gutter="10">
-                      <el-col :span="6" class="company w_blue" ><div class="grid-content fc w-blue" v-if="OddsDatas.Name!=''">{{OddsDatas.Name}}</div><div v-else>--</div></el-col>
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[0]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[0]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[0]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>  
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[0]!=undefined && OddsDatas.Logs[0].Data[0]!=''">{{OddsDatas.Logs[0].Data[0]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[1]!=undefined && OddsDatas.Logs[0].Data[1]!=''">{{OddsDatas.Logs[0].Data[1]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>  
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[2]!=undefined && OddsDatas.Logs[0].Data[2]!=''">{{OddsDatas.Logs[0].Data[2]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>                                                           
-                    </el-row>                    
-                  </div>              
+                <div class="table-body" v-if="Datass!=undefined && Datass.length!=0">
+                  <div v-for="(DatasS, str, index) in lastDatas" :key="index" class="fl listL">
+                    <div v-for="(Datas, str, index2) in DatasS" :key="index2" class="pl-list" @click="ShowLogs(Datas.Cid)">
+                      <el-row :gutter="10" >
+                        <el-col :span="24" class="company"><div class="grid-content fc w_blue" :compname="CompName">{{CompName[index2]}}</div></el-col>
+                        </el-row>
+                    </div>
+                  </div>
+                  <div v-for="(DatasS, str, index) in firstDatas" :key="index" class="fl listM">
+                    <div v-for="(Datas, str, index2) in DatasS" :key="index2" class="pl-list" @click="ShowLogs(Datas.Cid)">
+                      <el-row :gutter="10" >
+                        <el-col :span="8">
+                          <div class="grid-content fc" >
+                            <span>{{Datas.Data[0]}}</span>
+                          </div>
+                        </el-col>
+                        <el-col :span="8">
+                          <div class="grid-content fc">
+                            <span>{{Datas.Data[1]}}</span>
+                          </div>
+                        </el-col>
+                        <el-col :span="8">
+                          <div class="grid-content fc">
+                            <span>{{Datas.Data[2]}}</span>
+                          </div>
+                        </el-col>
+                      </el-row>
+                    </div>
+                  </div>
+                  <div v-for="(DatasS, str, index) in lastDatas" :key="index" class="fl listR">
+                    <div v-for="(Datas, str, index2) in DatasS" :key="index2" class="pl-list" @click="ShowLogs(Datas.Cid)">
+                      <el-row :gutter="10">
+                        <el-col :span="8">
+                          <div class="grid-content fc" >
+                            <span>de{{Datas.Data[0]}}</span>
+                          </div>
+                        </el-col>
+                        <el-col :span="8">
+                          <div class="grid-content fc">
+                            <span>de{{Datas.Data[1]}}</span>
+                          </div>
+                        </el-col>
+                        <el-col :span="8">
+                          <div class="grid-content fc">
+                            <span>de{{Datas.Data[2]}}</span>
+                          </div>
+                        </el-col>
+                      </el-row>
+                    </div>
+                  </div>          
                 </div>
-                <div class="nodata-mess" v-else>暂无数据</div>                
+                <div class="nodata-mess" v-else>暂无数据</div>
               </div>
             </div>
           </div>
           <div class="pl-dialog">
-            <el-dialog :title="CurCName + ' 亚盘赔率变化'" :visible.sync="dialogTableVisible" top='10px' width="96%" open="LoadLogs" :cidlog="cidLog" >
+            <el-dialog :title="CurCName + ' 亚盘变化'" :visible.sync="dialogTableVisible" top='10px' width="96%" open="LoadLogs" :cidlog="cidLog">
                <div>
-                <el-row :gutter="10" class="table-header little-word">
-                  <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="18"><div class="grid-content fc">盘口</div></el-col>
+                <el-row :gutter="4" class="table-header little-word">
+                  <el-col :span="7"><div class="grid-content fc">公司</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">主赔</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">客赔</div></el-col>
+                  <el-col :span="3"><div class="grid-content fc">让分</div></el-col>
+                  <el-col :span="8"><div class="grid-content fc">变化时间</div></el-col>
                 </el-row>
-                <el-row :gutter="10" class="table-header little-word">
-                  <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">上盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">下盘</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">让球</div></el-col>
-                  <el-col :span="9"><div class="grid-content fc">变化时间</div></el-col>              
-                </el-row>
-                <div class="table-body" v-if="OddsDatass!=undefined && OddsDatass.length!=0">
-                  <div >
+                <div class="table-body" v-if="Datass!=undefined && Datass.length!=0">
+                  <div>
                     <div  v-if="CurLogs!=undefined && CurLogs.length!=0">
-                      <el-row :gutter="10" class="pl-list" :key="index" v-for="(Logs, index) in CurLogs" >
-                        <el-col :span="6" class="company" ><div class="grid-content fc w-blue" v-if="CurCName!=''">{{CurCName}}</div><div v-else>--</div></el-col>
+                      <el-row :gutter="4" class="pl-list" :key="index" v-for="(Logs, index) in CurLogs" >
+                        <el-col :span="7" class="company" ><div class="grid-content fc w-blue" v-if="CurCName!=''">{{CurCName}}</div><div v-else>--</div></el-col>
                         <el-col :span="3">
                           <div class="grid-content fc" v-if="Logs.Data[0]!=undefined && Logs.Data[0]!=''">{{Logs.Data[0]}}</div>
                           <div class="fc" v-else>--</div>
@@ -88,22 +104,22 @@
                           <div class="fc" v-else>--</div>
                         </el-col>  
                         <el-col :span="3">
-                          <div class="grid-content fc" v-if="Logs.Data[2]!=undefined && Logs.Data[2]!=''">{{Logs.Data[2]}}</div>
+                          <div class="grid-content fc" v-if="Logs.Data[2]!=undefined && Logs.Data[2]!=''">{{Logs.Data[2]}}%</div>
                           <div class="fc" v-else>--</div>
                         </el-col>
-                        <el-col :span="9">
+                        <el-col :span="8">
                           <div class="grid-content fc" :pldate="plDate">{{plDate[index] | filterdatatime}}</div>
                         </el-col>                                                          
                       </el-row>
-                    </div>               
+                    </div>
                   </div>
                 </div>
                 <div class="nodata-mess" v-else>暂无数据</div>                
               </div>               
             </el-dialog>             
-          </div> 
+          </div>   
       </div>
-    </div> 
+    </div>     
   </div>
 </template>
 
@@ -113,21 +129,46 @@ export default {
   data () {
     return {
       'matchid': this.$route.params.matchid,
-      'ahoddsinfo': {},
-      'OddsDatass': {},
-      'ComLogs': {},
+      'hdaoddsinfo': {},
+      'Datass': {},
+      'lastDatas': [],
+      'firstDatas': [],
       'dialogTableVisible': false,
       'cidLog': '',
-      'CurLogs': {},
+      'CurLogs': [],
+      'Logs': [],
       'CurCName': ''
     };
   },
   created () {
-    var zs_ahoddsinfoUrl = 'live/Api/Api/index/cc/zs_ahoddsinfo/id/' + this.matchid;
-    this.$http.jsonp(zs_ahoddsinfoUrl).then(response => {
+    var hdaoddsinfoUrl = 'live/Api/Api/index/cc/b_ahoddsinfo/id/' + this.matchid;
+    this.$http.jsonp(hdaoddsinfoUrl).then(response => {
       response = response.body;
-      this.ahoddsinfo = response;
-      this.OddsDatass = this.ahoddsinfo.OddsDatas;
+      this.hdaoddsinfo = response;
+      this.Datass = this.hdaoddsinfo.Datas;
+      var datas = this.Datass;
+      var temp = {};
+      var temp3 = {};
+      for (var i = datas.length - 1; i >= 0; i--) {
+        if (temp[datas[i].Cid] === 1) {
+          continue;
+        } else {
+          temp[datas[i].Cid] = 1;
+          temp3[datas[i].Cid] = datas[i];
+        }
+      }
+      this.lastDatas.push(temp3);
+      temp3 = {};
+      var temp2 = {};
+      for (var j = 0; j < datas.length; j++) {
+        if (temp2[datas[j].Cid] === 1) {
+          continue;
+        } else {
+          temp2[datas[j].Cid] = 1;
+          temp3[datas[j].Cid] = datas[j];
+        }
+      }
+      this.firstDatas.push(temp3);
     }, response => {});
   },
   filters: {
@@ -142,6 +183,47 @@ export default {
     }
   },
   computed: {
+    CompName () {
+      var ComNameArray = [];
+      var Datas = [];
+      for (var i = 0; i < this.lastDatas.length; i++) {
+        Datas = this.lastDatas[i];
+      }
+      for (var j in Datas) {
+        var ComName = Datas[j].Cid;
+        switch (ComName) {
+        case '0':
+        ComName = '澳門';
+        break;
+        case '1':
+        ComName = '威廉希爾';
+        break;
+        case '2':
+        ComName = '易勝博';
+        break;
+        case '3':
+        ComName = '12BET';
+        break;
+        case '4':
+        ComName = 'S2';
+        break;
+        case '5':
+        ComName = '立博';
+        break;
+        case '6':
+        ComName = '188BET';
+        break;
+        case '7':
+        ComName = '10BET';
+        break;
+        default:
+        ComName = '暂无信息';
+        break;
+        }
+      ComNameArray.push(ComName);
+      }
+      return ComNameArray;
+    },
     plDate () {
       var pldate = [];
       var Date1 = '';
@@ -158,15 +240,54 @@ export default {
     }
   },
   methods: {
-    ShowLogs (CId) {
+    ShowLogs (Cid) {
       this.dialogTableVisible = true;
-      this.cidLog = CId;
-      for (var index in this.OddsDatass) {
-        if (this.OddsDatass[index].CId === this.cidLog) {
-          this.CurLogs = this.OddsDatass[index].Logs;
-          this.CurCName = this.OddsDatass[index].Name;
+      this.cidLog = Cid;
+      var ComName = '';
+      switch (Cid) {
+       case '0':
+       ComName = '澳門';
+       break;
+       case '1':
+       ComName = '威廉希爾';
+       break;
+       case '2':
+       ComName = '易勝博';
+       break;
+       case '3':
+       ComName = '12BET';
+       break;
+       case '4':
+       ComName = 'S2';
+       break;
+       case '5':
+       ComName = '立博';
+       break;
+       case '6':
+       ComName = '188BET';
+       break;
+       case '7':
+       ComName = '10BET';
+       break;
+       default:
+       ComName = '暂无信息';
+       break;
+      }
+      this.CurCName = ComName;
+      if (this.Logs[Cid] !== undefined) {
+        this.CurLogs = this.Logs[Cid];
+        return;
+      }
+     this.Logs[Cid] = [];
+      for (var index = this.Datass.length - 1; index >= 0; index--) {
+        if (this.Datass[index].Cid === this.cidLog) {
+        console.log(this.Datass[index]);
+          this.Logs[Cid].push(this.Datass[index]);
         }
       }
+      this.CurLogs = this.Logs[Cid];
+      console.log(this.Logs[Cid]);
+      // this.CurLogs = this.CurLogs.reverse();
     }
   }
 };
@@ -249,7 +370,8 @@ ul,li,ol{
   padding:10px 0;
 }
 .table-body{
-  padding:5px;
+  padding:5px 0;
+  overflow:hidden;
   .el-row{
     padding: 15px 0;
     text-align:center;
@@ -272,6 +394,7 @@ ul,li,ol{
     text-align:center;
     justify-content: center;
     font-size:14px;
+    word-break:break-all;
   }
 }
 .pl-dialog{
@@ -285,4 +408,16 @@ ul,li,ol{
 .el-dialog__body{
   padding:0 20px;
 }
+.listL{
+  width:25%;
+}
+.listM,.listR{
+  width:37.5%;
+}
+.listL,.listM,.listR{
+  .el-row{
+  height:50px;
+  }
+}
+
 </style>

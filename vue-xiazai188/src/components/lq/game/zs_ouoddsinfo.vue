@@ -1,11 +1,11 @@
 <template>
-  <div class="zs-ouoddsinfo">
+  <div class="zs-hdaoddsinfo">
     <div class="zhegie-wrap">
       <div calss="zhedie-box">
           <div class="well well-sm">
             <div class="fl">
                 <i class="sm-line"></i>
-                大小盘列表        
+                总分指列表        
             </div>
           </div>
           <div class="zhedie-con">
@@ -13,97 +13,76 @@
               <div>
                 <el-row :gutter="10" class="table-header little-word">
                   <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="9"><div class="grid-content fc">初盘</div></el-col>
-                  <el-col :span="9"><div class="grid-content fc">即时</div></el-col>
+                  <el-col :span="6"><div class="grid-content fc">大分赔率</div></el-col>
+                  <el-col :span="6"><div class="grid-content fc">小分赔率</div></el-col>
+                  <el-col :span="6"><div class="grid-content fc">总分盘口</div></el-col>
                 </el-row>
-                <el-row :gutter="10" class="table-header little-word">
-                  <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">大球赔率</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">总进球</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">小球赔率</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">大球赔率</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">总进球</div></el-col>
-                  <el-col :span="3"><div class="grid-content fc">小球赔率</div></el-col>                  
-                </el-row>
-                <div class="table-body" v-if="OddsDatass!=undefined && OddsDatass.length!=0">
-                  <div v-for="(OddsDatas, index) in OddsDatass" :key="index" @click="ShowLogs(OddsDatas.CId)" class="pl-list">
+                <div class="table-body" v-if="Datass!=undefined && Datass.length!=0">
+                  <div  class="pl-list" v-for="(Datas, index) in lastDatas" :key="index" @click="ShowLogs(Datas.Cid)">
                     <el-row :gutter="10">
-                      <el-col :span="6" class="company w_blue" ><div class="grid-content fc w-blue" v-if="OddsDatas.Name!=''">{{OddsDatas.Name}}</div><div v-else>--</div></el-col>
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[0]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[0]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[0]}}</div>
-                        <div class="fc" v-else>--</div>
+                      <el-col :span="6" class="company"><div class="grid-content fc w_blue" :compname="CompName">{{CompName[index]}}</div></el-col>
+                      <el-col :span="6">
+                        <div class="grid-content fc">
+                          <span>{{Datas.Data[0]}}</span>
+                        </div>
                       </el-col>
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[2]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>  
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]!=undefined && OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]!=''">{{OddsDatas.Logs[OddsDatas.Logs.length-1].Data[1]}}</div>
-                        <div class="fc" v-else>--</div>
+                      <el-col :span="6">
+                        <div class="grid-content fc">
+                          <span>{{Datas.Data[1]}}</span>
+                        </div>
                       </el-col>
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[0]!=undefined && OddsDatas.Logs[0].Data[0]!=''">{{OddsDatas.Logs[0].Data[0]}}</div>
-                        <div class="fc" v-else>--</div>
+                      <el-col :span="6">
+                        <div class="grid-content fc">
+                          <span>{{Datas.Data[2]}}</span>
+                        </div>
                       </el-col>
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[2]!=undefined && OddsDatas.Logs[0].Data[2]!=''">{{OddsDatas.Logs[0].Data[2]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>  
-                      <el-col :span="3">
-                        <div class="grid-content fc" v-if="OddsDatas.Logs[0].Data[1]!=undefined && OddsDatas.Logs[0].Data[1]!=''">{{OddsDatas.Logs[0].Data[1]}}</div>
-                        <div class="fc" v-else>--</div>
-                      </el-col>                                                           
-                    </el-row>                    
-                  </div>              
+                    </el-row>  
+                  </div>        
                 </div>
-                <div class="nodata-mess" v-else>暂无数据</div>                
+                <div class="nodata-mess" v-else>暂无数据</div>
               </div>
             </div>
           </div>
           <div class="pl-dialog">
-            <el-dialog :title="CurCName + ' 大小盘赔率变化'" :visible.sync="dialogTableVisible" top='10px' width="96%" open="LoadLogs" :cidlog="cidLog" >
+            <el-dialog :title="CurCName + ' 总分指变化'" :visible.sync="dialogTableVisible" top='10px' width="96%" open="LoadLogs" :cidlog="cidLog">
                <div>
-                <el-row :gutter="10" class="table-header little-word">
+                <el-row :gutter="5" class="table-header little-word">
                   <el-col :span="6"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="18"><div class="grid-content fc">盘口</div></el-col>
+                  <el-col :span="4"><div class="grid-content fc">大分赔率</div></el-col>
+                  <el-col :span="4"><div class="grid-content fc">小分赔率</div></el-col>
+                  <el-col :span="4"><div class="grid-content fc">总分盘口</div></el-col>
+                  <el-col :span="6"><div class="grid-content fc">变化时间</div></el-col>
                 </el-row>
-                <el-row :gutter="10" class="table-header little-word">
-                  <el-col :span="5"><div class="grid-content fc">公司</div></el-col>
-                  <el-col :span="4"><div class="grid-content fc">大球赔率</div></el-col>
-                  <el-col :span="4"><div class="grid-content fc">总进球</div></el-col>
-                  <el-col :span="4"><div class="grid-content fc">小球赔率</div></el-col>
-                  <el-col :span="7"><div class="grid-content fc">变化时间</div></el-col>              
-                </el-row>
-                <div class="table-body" v-if="OddsDatass!=undefined && OddsDatass.length!=0">
-                  <div >
+                <div class="table-body" v-if="Datass!=undefined && Datass.length!=0">
+                  <div>
                     <div  v-if="CurLogs!=undefined && CurLogs.length!=0">
-                      <el-row :gutter="10" class="pl-list" :key="index" v-for="(Logs, index) in CurLogs" >
-                        <el-col :span="5" class="company" ><div class="grid-content fc w-blue" v-if="CurCName!=''">{{CurCName}}</div><div v-else>--</div></el-col>
+                      <el-row :gutter="5" class="pl-list" :key="index" v-for="(Logs, index) in CurLogs" >
+                        <el-col :span="6" class="company" ><div class="grid-content fc w-blue" v-if="CurCName!=''">{{CurCName}}</div><div v-else>--</div></el-col>
                         <el-col :span="4">
                           <div class="grid-content fc" v-if="Logs.Data[0]!=undefined && Logs.Data[0]!=''">{{Logs.Data[0]}}</div>
                           <div class="fc" v-else>--</div>
                         </el-col>
                         <el-col :span="4">
-                          <div class="grid-content fc" v-if="Logs.Data[2]!=undefined && Logs.Data[2]!=''">{{Logs.Data[2]}}</div>
+                          <div class="grid-content fc" v-if="Logs.Data[1]!=undefined && Logs.Data[1]!=''">{{Logs.Data[1]}}</div>
                           <div class="fc" v-else>--</div>
                         </el-col>  
                         <el-col :span="4">
-                          <div class="grid-content fc" v-if="Logs.Data[1]!=undefined && Logs.Data[1]!=''">{{Logs.Data[1]}}</div>
+                          <div class="grid-content fc" v-if="Logs.Data[2]!=undefined && Logs.Data[2]!=''">{{Logs.Data[2]}}</div>
                           <div class="fc" v-else>--</div>
                         </el-col>
-                        <el-col :span="7">
+                        <el-col :span="9">
                           <div class="grid-content fc" :pldate="plDate">{{plDate[index] | filterdatatime}}</div>
                         </el-col>                                                          
                       </el-row>
-                    </div>               
+                    </div>
                   </div>
                 </div>
                 <div class="nodata-mess" v-else>暂无数据</div>                
               </div>               
             </el-dialog>             
-          </div> 
+          </div>   
       </div>
-    </div> 
+    </div>     
   </div>
 </template>
 
@@ -113,21 +92,32 @@ export default {
   data () {
     return {
       'matchid': this.$route.params.matchid,
-      'ouoddsinfo': {},
-      'OddsDatass': {},
-      'ComLogs': {},
+      'hdaoddsinfo': {},
+      'Datass': {},
+      'lastDatas': [],
       'dialogTableVisible': false,
       'cidLog': '',
-      'CurLogs': {},
+      'CurLogs': [],
+      'Logs': [],
       'CurCName': ''
     };
   },
   created () {
-    var zs_ouoddsinfoUrl = 'live/Api/Api/index/cc/zs_ouoddsinfo/id/' + this.matchid;
-    this.$http.jsonp(zs_ouoddsinfoUrl).then(response => {
+    var hdaoddsinfoUrl = 'live/Api/Api/index/cc/b_ouoddsinfo/id/' + this.matchid;
+    this.$http.jsonp(hdaoddsinfoUrl).then(response => {
       response = response.body;
-      this.ouoddsinfo = response;
-      this.OddsDatass = this.ouoddsinfo.OddsDatas;
+      this.hdaoddsinfo = response;
+      this.Datass = this.hdaoddsinfo.Datas;
+      var datas = this.Datass;
+      var temp = {};
+      for (var i = datas.length - 1; i >= 0; i--) {
+        if (temp[datas[i].Cid] === 1) {
+          continue;
+        } else {
+          temp[datas[i].Cid] = 1;
+          this.lastDatas.push(datas[i]);
+        }
+      }
     }, response => {});
   },
   filters: {
@@ -142,6 +132,43 @@ export default {
     }
   },
   computed: {
+    CompName () {
+      var ComNameArray = [];
+      for (var i = 0; i < this.lastDatas.length; i++) {
+      var ComName = this.lastDatas[i].Cid;
+        switch (ComName) {
+        case '0':
+        ComName = '澳門';
+        break;
+        case '1':
+        ComName = '威廉希爾';
+        break;
+        case '2':
+        ComName = '易勝博';
+        break;
+        case '3':
+        ComName = '12BET';
+        break;
+        case '4':
+        ComName = 'S2';
+        break;
+        case '5':
+        ComName = '立博';
+        break;
+        case '6':
+        ComName = '188BET';
+        break;
+        case '7':
+        ComName = '10BET';
+        break;
+        default:
+        ComName = '暂无信息';
+        break;
+        }
+      ComNameArray.push(ComName);
+    }
+    return ComNameArray;
+    },
     plDate () {
       var pldate = [];
       var Date1 = '';
@@ -158,15 +185,54 @@ export default {
     }
   },
   methods: {
-    ShowLogs (CId) {
+    ShowLogs (Cid) {
       this.dialogTableVisible = true;
-      this.cidLog = CId;
-      for (var index in this.OddsDatass) {
-        if (this.OddsDatass[index].CId === this.cidLog) {
-          this.CurLogs = this.OddsDatass[index].Logs;
-          this.CurCName = this.OddsDatass[index].Name;
+      this.cidLog = Cid;
+      var ComName = '';
+      switch (Cid) {
+       case '0':
+       ComName = '澳門';
+       break;
+       case '1':
+       ComName = '威廉希爾';
+       break;
+       case '2':
+       ComName = '易勝博';
+       break;
+       case '3':
+       ComName = '12BET';
+       break;
+       case '4':
+       ComName = 'S2';
+       break;
+       case '5':
+       ComName = '立博';
+       break;
+       case '6':
+       ComName = '188BET';
+       break;
+       case '7':
+       ComName = '10BET';
+       break;
+       default:
+       ComName = '暂无信息';
+       break;
+      }
+      this.CurCName = ComName;
+      if (this.Logs[Cid] !== undefined) {
+        this.CurLogs = this.Logs[Cid];
+        return;
+      }
+     this.Logs[Cid] = [];
+      for (var index = this.Datass.length - 1; index >= 0; index--) {
+        if (this.Datass[index].Cid === this.cidLog) {
+        console.log(this.Datass[index]);
+          this.Logs[Cid].push(this.Datass[index]);
         }
       }
+      this.CurLogs = this.Logs[Cid];
+      console.log(this.Logs[Cid]);
+      // this.CurLogs = this.CurLogs.reverse();
     }
   }
 };
@@ -249,7 +315,7 @@ ul,li,ol{
   padding:10px 0;
 }
 .table-body{
-  padding:5px;
+  padding:5px 0;
   .el-row{
     padding: 15px 0;
     text-align:center;
@@ -272,6 +338,7 @@ ul,li,ol{
     text-align:center;
     justify-content: center;
     font-size:14px;
+    word-break:break-all;
   }
 }
 .pl-dialog{

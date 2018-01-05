@@ -14,7 +14,7 @@
         <el-row class="gameinfo-box">
           <el-col :span="8">
             <div class="grid-content left">
-              <router-link :to="'/zq/team/teamsc/' + gameinfo.HomeTeam.Id" :homeTeamid="gameinfo.HomeTeam.Id">
+              <router-link :to="'/lq/team/teamsc/' + gameinfo.HomeTeam.Id" :homeTeamid="gameinfo.HomeTeam.Id">
                 <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/teamInfo/' + gameinfo.HomeTeam.Id + '.jpg'"></p>
                 <p class="name" v-if="gameinfo.HomeTeam.ShortName!=''">{{gameinfo.HomeTeam.ShortName}}</p><p class="name" v-else>{{gameinfo.HomeTeam.Name}}</p>
                 <p class="little-word">{{gameinfo.Competition.ShortName}}排名{{gameinfo.HomeTeam.Rank}}</p>
@@ -30,7 +30,7 @@
           </el-col>
           <el-col :span="8">
             <div class="grid-content right">
-              <router-link :to="'/zq/team/teamsc/' + gameinfo.AwayTeam.Id" :homeTeamid="gameinfo.AwayTeam.Id">
+              <router-link :to="'/lq/team/teamsc/' + gameinfo.AwayTeam.Id" :homeTeamid="gameinfo.AwayTeam.Id">
                 <p class="pic"><img :src="'http://static.caishencai.com/tiyu/images/teamInfo/' + gameinfo.AwayTeam.Id + '.jpg'"></p>
                 <p class="name" v-if="gameinfo.AwayTeam.ShortName!=''">{{gameinfo.AwayTeam.ShortName}}</p><p class="name" v-else>{{gameinfo.AwayTeam.Name}}</p>
                 <p class="little-word">{{gameinfo.Competition.ShortName}}排名{{gameinfo.AwayTeam.Rank}}</p>

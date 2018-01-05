@@ -12,7 +12,7 @@
                 <el-row :gutter="5" v-for="(Player, index) in Players" :key='index' class="list">
                   <el-col :span="3">
                     <div class="grid-content fc">
-                      <img :src="'http://static.caishencai.com/tiyu/images/zq-player/' + Player.Id + '.jpg'" class="img">
+                      <img :src="'http://static.caishencai.com/tiyu/images/lq-player/' + Player.Id + '.jpg'" class="img">
                     </div>               
                   </el-col>                     
                   <el-col :span="11">
@@ -24,7 +24,8 @@
                     <div class="grid-content fc" v-else>--</div>
                   </el-col>
                   <el-col :span="6">
-                    <div class="grid-content fc">{{Player.Position}}</div>                 
+                    <div class="grid-content fc" v-if="Player.Position!=''">{{Player.Position}}</div> 
+                    <div class="grid-content fc" v-else>--</div>                
                   </el-col>
                 </el-row>
               </div>
@@ -47,7 +48,7 @@ export default {
     };
   },
   created () {
-    var teamszrsUrl = 'live/Api/Api/index/cc/teaminfo/id/' + this.teamid;
+    var teamszrsUrl = 'live/Api/Api/index/cc/b_teaminfo/id/' + this.teamid;
     this.$http.jsonp(teamszrsUrl).then(response => {
       response = response.body;
       this.teamstats = response;

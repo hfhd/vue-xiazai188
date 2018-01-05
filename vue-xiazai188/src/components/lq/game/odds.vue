@@ -4,17 +4,17 @@
         <el-row class="gametab2">
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/game/zs_hdaoddsinfo/' + matchid" >欧赔</router-link>
+              <router-link :to="'/lq/game/b_hdaoddsinfo/' + matchid" >欧赔</router-link>
             </div>
           </el-col>
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/game/zs_ahoddsinfo/' + matchid" >亚盘</router-link>
+              <router-link :to="'/lq/game/b_ahoddsinfo/' + matchid" >亚盘</router-link>
             </div>            
           </el-col>
           <el-col :span="8">
             <div class="grid-content">
-              <router-link :to="'/zq/game/zs_ouoddsinfo/' + matchid" >大小盘</router-link>
+              <router-link :to="'/lq/game/b_ouoddsinfo/' + matchid" >总分指</router-link>
             </div>            
           </el-col>
         </el-row>

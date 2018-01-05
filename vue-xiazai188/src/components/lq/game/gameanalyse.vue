@@ -1262,32 +1262,48 @@ export default {
       this.competitions = this.gameanalyse.Competition;
       this.teams = this.gameanalyse.Team;
       this.teamHistorys = this.gameanalyse.TeamHistory;
-      this.homeHistorys = this.teamHistorys.Home;
-      this.awayHistorys = this.teamHistorys.Away;
+      if (this.teamHistorys !== undefined && this.teamHistorys !== '') {
+        this.homeHistorys = this.teamHistorys.Home;
+        this.awayHistorys = this.teamHistorys.Away;
+      }
       this.Standings = this.gameanalyse.Standings;
-      this.HomeStandings = this.Standings.Home;
-      this.AwayStandings = this.Standings.Away;
-      this.HomeFullTime = this.HomeStandings.FullTime;
-      this.AwayFullTime = this.AwayStandings.FullTime;
+      if (this.Standings !== undefined && this.Standings !== '') {
+        this.HomeStandings = this.Standings.Home;
+        this.AwayStandings = this.Standings.Away;
+        this.HomeFullTime = this.HomeStandings.FullTime;
+        this.AwayFullTime = this.AwayStandings.FullTime;
+      }
       this.Stats = this.gameanalyse.Stats;
       this.AVGScoredLost = this.Stats['AVGScored/Lost'];
-      this.HomeAVGScored = this.Stats['AVGScored/Lost'].Home;
-      this.AwayAVGScored = this.Stats['AVGScored/Lost'].Away;
+      if (this.AVGScoredLost !== undefined && this.AVGScoredLost !== '') {
+        this.HomeAVGScored = this.Stats['AVGScored/Lost'].Home;
+        this.AwayAVGScored = this.Stats['AVGScored/Lost'].Away;
+      }
       this.TeamScored = this.Stats.TeamScored;
-      this.HomeScored = this.TeamScored.Home;
-      this.AwayScored = this.TeamScored.Away;
+      if (this.TeamScored !== undefined && this.TeamScored !== '') {
+        this.HomeScored = this.TeamScored.Home;
+        this.AwayScored = this.TeamScored.Away;
+      }
       this.TotalPoints = this.Stats.TotalPoints;
-      this.HomeTotalPoints = this.TotalPoints.Home;
-      this.AwayTotalPoints = this.TotalPoints.Away;
+      if (this.TotalPoints !== undefined && this.TotalPoints !== '') {
+        this.HomeTotalPoints = this.TotalPoints.Home;
+        this.AwayTotalPoints = this.TotalPoints.Away;
+      }
       this.HalfFullTime = this.Stats['Half/FullTime'];
-      this.HomeHalfFullTime = this.HalfFullTime.Home;
-      this.AwayHalfFullTime = this.HalfFullTime.Away;
+      if (this.HalfFullTime !== undefined && this.HalfFullTime !== '') {
+        this.HomeHalfFullTime = this.HalfFullTime.Home;
+        this.AwayHalfFullTime = this.HalfFullTime.Away;
+      }
       this.TeamStats = this.Stats.TeamStats;
-      this.HomeTeamStats = this.TeamStats.Home;
-      this.AwayTeamStats = this.TeamStats.Away;
+      if (this.TeamStats !== undefined && this.TeamStats !== '') {
+        this.HomeTeamStats = this.TeamStats.Home;
+        this.AwayTeamStats = this.TeamStats.Away;
+      }
       this.TeamFixtures = this.gameanalyse.TeamFixture;
-      this.homeFixtures = this.TeamFixtures.Home;
-      this.awayFixtures = this.TeamFixtures.Away;
+      if (this.TeamFixtures !== undefined && this.TeamFixtures !== '') {
+        this.homeFixtures = this.TeamFixtures.Home;
+       this.awayFixtures = this.TeamFixtures.Away;
+      }
     }, response => {});
   },
   filters: {
